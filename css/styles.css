@@ -245,13 +245,17 @@ a { color: inherit; }
   overflow: hidden;
 }
 
-.hero__photo,
-.hero__photo img {
+.hero__photo {
   grid-area: 1 / 1;
+  position: relative;
+  min-height: 0;
+}
+/* Poziționată absolut, ca fotografia verticală să nu dicteze înălțimea secțiunii */
+.hero__photo img {
+  position: absolute;
+  top: 0; left: 0;
   width: 100%;
   height: 100%;
-}
-.hero__photo img {
   object-fit: cover;
   object-position: 50% 35%;
 }
@@ -279,15 +283,20 @@ a { color: inherit; }
 
 @media (min-width: 900px) {
   .hero {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    min-height: 640px;
-    max-height: 820px;
+    /* Fotografia ia ~60% din lățime; coloana de text rămâne îngustă. */
+    grid-template-columns: minmax(380px, 2fr) minmax(0, 3fr);
+    min-height: 560px;
+    height: clamp(560px, calc(100vh - var(--header-h)), 820px);
+    max-height: none;
   }
+  .hero__text h1 { font-size: clamp(2.6rem, 4.4vw, 4.4rem); }
   .hero__photo { grid-area: 1 / 2; }
   .hero__text {
     grid-area: 1 / 1;
     align-self: center;
-    padding: 64px var(--gutter) 64px max(var(--gutter), calc((100vw - 1120px) / 2 + var(--gutter)));
+    padding: 64px clamp(28px, 3.5vw, 56px);
+    max-width: 640px;
+    justify-self: end;
     background: none;
   }
   /* Rama sculptată în jurul fotografiei */
