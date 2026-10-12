@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cod QR pentru meniu — Vitrina cu Delicii</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;700&family=Bodoni+Moda:ital,opsz,wght@1,6..96,500&display=swap" rel="stylesheet">
+  <style>
+    :root { --walnut: #5a2a14; --cherry: #8e4421; --facade: #e6f0e6; --paper: #f7fbf6; --rose: #b8285f; --ink: #2b1a12; color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--facade); color: var(--ink); font: 1.1rem/1.5 "Alegreya Sans", system-ui, sans-serif; }
+    main { max-width: 640px; margin: 0 auto; padding: 32px 16px 56px; }
+    h1 { font: italic 500 2rem/1.15 "Bodoni Moda", Georgia, serif; color: var(--walnut); margin: 0 0 8px; }
+    label { display: block; font-weight: 700; margin: 24px 0 6px; }
+    input { width: 100%; min-height: 48px; padding: 10px 14px; font: inherit; border: 1.5px solid #b9c9bb; border-radius: 6px; }
+    input:focus-visible, button:focus-visible { outline: 3px solid #24408c; outline-offset: 2px; }
+    .actions { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+    button { min-height: 48px; padding: 10px 22px; border: 0; border-radius: 999px; background: var(--rose); color: #fff; font: 700 1rem "Alegreya Sans", sans-serif; cursor: pointer; }
+    button.quiet { background: transparent; color: var(--walnut); box-shadow: inset 0 0 0 1.5px var(--walnut); }
+    .card { margin-top: 32px; padding: 28px 24px; background: #fff; border-radius: 14px; text-align: center; border: 10px solid transparent;
+      background: linear-gradient(#fff, #fff) padding-box,
+        repeating-linear-gradient(45deg, transparent 0 5px, rgba(42,18,6,.55) 5px 6.5px, transparent 6.5px 11px) border-box,
+        repeating-linear-gradient(-45deg, transparent 0 5px, rgba(42,18,6,.55) 5px 6.5px, transparent 6.5px 11px) border-box,
+        linear-gradient(var(--cherry), var(--walnut)) border-box; }
+    .card img.logo { width: 220px; height: auto; margin: 0 auto 8px; display: block; }
+    .card p { margin: 0; }
+    .card .lead { font: italic 500 1.4rem "Bodoni Moda", Georgia, serif; color: var(--walnut); }
+    #qr { display: grid; place-items: center; margin: 18px auto; min-height: 240px; }
+    #qr img, #qr canvas { width: 240px; height: 240px; }
+    .hint { color: #5e4a3f; font-size: 1rem; }
+    @media print {
+      body { background: #fff; }
+      main > :not(.card) { display: none; }
+      .card { margin: 0 auto; max-width: 12cm; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Cod QR pentru meniu</h1>
+    <p class="hint">Scrieți adresa la care este publicat site-ul, apoi tipăriți cartonașul și puneți-l pe mese sau în vitrină.</p>
+
+    <label for="url">Adresa site-ului</label>
+    <input id="url" type="url" inputmode="url" autocomplete="url" spellcheck="false" placeholder="https://vitrinacudelicii.ro">
+
+    <div class="actions">
+      <button type="button" id="make">Generează codul</button>
+      <button type="button" class="quiet" id="print">Tipărește</button>
+    </div>
+
+    <section class="card" aria-label="Previzualizare cartonaș">
+      <img class="logo" src="assets/img/logo.png" alt="Vitrina cu Delicii" width="640" height="287">
+      <p class="lead">Scanați pentru meniu</p>
+      <div id="qr" role="img" aria-label="Cod QR către meniu"></div>
+      <p>Comandați direct pe WhatsApp</p>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    (function () {
+      const input = document.getElementById("url");
+      const box = document.getElementById("qr");
+      // Implicit: adresa paginii principale de lângă acest fișier.
+      input.value = location.protocol.startsWith("http") ? new URL("./", location.href).href : "";
+
+      function make() {
+        const url = input.value.trim();
+        box.replaceChildren();
+        if (!url) { box.textContent = "Scrieți adresa site-ului mai sus."; return; }
+        new QRCode(box, { text: url, width: 480, height: 480, colorDark: "#2b1a12", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
+      }
+      document.getElementById("make").addEventListener("click", make);
+      document.getElementById("print").addEventListener("click", () => window.print());
+      make();
+    })();
+  </script>
+</body>
+</html>
