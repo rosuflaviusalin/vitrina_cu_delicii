@@ -24,6 +24,12 @@ An `Observații: …` line is appended only when the customer fills in the optio
 
 All user-facing copy is Romanian, with correct diacritics (ă, â, î, ș, ț — comma-below, not cedilla) and formal address ("dumneavoastră", "Alegeți"). Motto: "Gust de neuitat, în inima Oraviței". Some products are frozen, so copy must not claim that everything is fresh, homemade or made each morning. Menu products and opening hours are placeholders and still need to be replaced with real data.
 
+## Workflow rules (from the owner)
+
+- **After every change, commit and push to `develop`** (`git push origin develop`). Do not ask first. Never commit to or push `main`. Netlify deploys `develop` as production, so a push publishes the change to customers. Run the relevant checks before pushing.
+- **Always use diacritics in any text added to the app**: menu items, descriptions, labels, messages, errors, alt text, the WhatsApp message and `<title>`/meta tags. Use ă, â, î, ș, ț, with comma-below ș/ț (U+0219/U+021B), never cedilla ş/ţ.
+- The owner writes in Romanian. Reply in Romanian.
+
 ## Running and testing
 
 Static site, no build step and no dependencies. Opening `index.html` directly works, because the scripts are classic scripts, not ES modules. Serve the folder to test it like it will run in production:
