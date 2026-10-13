@@ -4,12 +4,13 @@
 // Puneți `tag: "nou"` sau `tag: "specialitatea casei"` pentru o mică etichetă lângă nume.
 // `family` grupează produsele de același fel pentru oferta 5+1 (la 5 covrigi, al 6-lea covrig e gratuit).
 // Produsele fără `family` și meniurile cu `offers: false` (băuturile) nu intră în nicio ofertă.
+// Un singur produs se scoate din oferta de vineri cu `offers: false` (de exemplu meniul sandviș + suc).
 
 window.SHOP = {
   name: "Vitrina cu Delicii",
   motto: "Gust de neuitat, în inima Oraviței",
-  phoneDisplay: "0766 991 577",
-  whatsapp: "40766991577", // format internațional, fără + și fără spații
+  phoneDisplay: "0731 306 015",
+  whatsapp: "40731306015", // format internațional, fără + și fără spații
   address: "Str. 1 Decembrie 1918 nr. 49, Oravița, Caraș-Severin",
   mapsQuery: "Strada 1 Decembrie 1918 49, Oravița, Caraș-Severin, Romania",
   // Ofertele: puneți `false` ca să opriți una.
@@ -18,9 +19,8 @@ window.SHOP = {
     fivePlusOne: true,     // la 5 produse din aceeași familie, cel mai ieftin dintre 6 e gratuit
   },
   hours: [
-    ["Luni – Vineri", "07:00 – 21:00"],
-    ["Sâmbătă", "08:00 – 21:00"],
-    ["Duminică", "09:00 – 18:00"],
+    ["Luni – Vineri", "07:00 – 14:30"],
+    ["Sâmbătă – Duminică", "Închis"],
   ],
 };
 
@@ -46,6 +46,9 @@ window.MENUS = [
       {
         title: "Sandvișuri și pizza",
         items: [
+          { id: "p-sandvis-mic-salam", name: "Sandviș mic cu salam", desc: "", unit: "buc.", price: 8, family: "sandvișuri", tag: "nou" },
+          { id: "p-sandvis-mic-sunca", name: "Sandviș mic cu șuncă", desc: "", unit: "buc.", price: 8, family: "sandvișuri", tag: "nou" },
+          { id: "p-meniu-sandvis-suc", name: "Meniu sandviș mic + suc", desc: "Un sandviș mic cu salam sau șuncă și un suc. Scrieți la observații ce sandviș și ce suc doriți.", unit: "meniu", price: 11.99, tag: "nou", offers: false },
           { id: "p-sandvis-sunca", name: "Sandviș cu șuncă", desc: "", unit: "buc.", price: 12, family: "sandvișuri" },
           { id: "p-sandvis-salam", name: "Sandviș cu salam", desc: "", unit: "buc.", price: 12, family: "sandvișuri" },
           { id: "p-sandvis-muschi", name: "Sandviș cu mușchi file", desc: "", unit: "buc.", price: 12, family: "sandvișuri" },
@@ -109,10 +112,10 @@ window.MENUS = [
       {
         title: "Meniuri",
         items: [
-          { id: "f-meniu-mini-crispy", name: "Meniu mini crispy de pui", desc: "Crispy de pui 2 bucăți, cartofi pai 100 g, salată de varză, sos de usturoi.", unit: "meniu", price: 19, family: "meniuri crispy" },
-          { id: "f-meniu-mega-crispy", name: "Meniu mega crispy de pui", desc: "Crispy de pui 4 bucăți, cartofi pai 200 g, salată de varză, sos de usturoi.", unit: "meniu", price: 29, family: "meniuri crispy" },
-          { id: "f-meniu-mini-aripioare", name: "Meniu mini aripioare crispy", desc: "Aripioare crispy de pui 4 bucăți, cartofi pai 100 g, salată de varză, sos de usturoi.", unit: "meniu", price: 19, family: "meniuri crispy" },
-          { id: "f-meniu-mega-aripioare", name: "Meniu mega aripioare crispy", desc: "Aripioare crispy de pui 8 bucăți, cartofi pai 200 g, salată de varză, sos de usturoi.", unit: "meniu", price: 29, family: "meniuri crispy" },
+          { id: "f-meniu-mini-crispy", name: "Meniu mini crispy de pui", desc: "Crispy de pui 2 bucăți, cartofi pai 100 g, salată de varză, sos de usturoi.", unit: "meniu", price: 16, family: "meniuri crispy" },
+          { id: "f-meniu-mega-crispy", name: "Meniu mega crispy de pui", desc: "Crispy de pui 4 bucăți, cartofi pai 200 g, salată de varză, sos de usturoi.", unit: "meniu", price: 26, family: "meniuri crispy" },
+          { id: "f-meniu-mini-aripioare", name: "Meniu mini aripioare crispy", desc: "Aripioare crispy de pui 4 bucăți, cartofi pai 100 g, salată de varză, sos de usturoi.", unit: "meniu", price: 16, family: "meniuri crispy" },
+          { id: "f-meniu-mega-aripioare", name: "Meniu mega aripioare crispy", desc: "Aripioare crispy de pui 8 bucăți, cartofi pai 200 g, salată de varză, sos de usturoi.", unit: "meniu", price: 26, family: "meniuri crispy" },
         ],
       },
     ],

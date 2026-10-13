@@ -29,7 +29,7 @@
     "slogan": "Gust de neuitat, în inima Oraviței",
     "url": "https://vitrinacudelicii.ro/",
     "image": "https://vitrinacudelicii.ro/assets/img/og-image.jpg",
-    "telephone": "+40766991577",
+    "telephone": "+40731306015",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Str. 1 Decembrie 1918 nr. 49",
@@ -38,9 +38,7 @@
       "addressCountry": "RO"
     },
     "openingHoursSpecification": [
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "07:00", "closes": "21:00" },
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "21:00" },
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "09:00", "closes": "18:00" }
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "07:00", "closes": "14:30" }
     ]
   }
   </script>
@@ -87,6 +85,39 @@
       </div>
     </section>
 
+    <section class="offers" aria-labelledby="offers-title">
+      <div class="offers__inner">
+        <h2 id="offers-title" class="offers__title">Ofertele casei</h2>
+        <div class="offers__list">
+          <article class="offer" data-offer="friday">
+            <p class="offer__figure" aria-hidden="true">−50%</p>
+            <div>
+              <p class="offer__kicker">În fiecare vineri</p>
+              <h3>Vinerea dulce</h3>
+              <p>După ora 11:00, toate produsele sunt la jumătate de preț, în afară de băuturi și de meniul sandviș + suc. Prețurile reduse apar singure în meniu.</p>
+            </div>
+            <span class="offer__stamp" aria-label="Oferta este activă acum">Acum</span>
+          </article>
+          <article class="offer" data-offer="five">
+            <p class="offer__figure" aria-hidden="true">5+1</p>
+            <div>
+              <p class="offer__kicker">Toată săptămâna</p>
+              <h3>Al șaselea, din partea casei</h3>
+              <p>La 5 produse de același fel, de exemplu covrigi, gogoși sau burgeri, al șaselea e gratuit: cel mai ieftin dintre ele. Nu se cumulează cu oferta de vineri.</p>
+            </div>
+          </article>
+          <article class="offer">
+            <p class="offer__figure" aria-hidden="true">10:00</p>
+            <div>
+              <p class="offer__kicker">Pentru elevi</p>
+              <h3>Livrare la liceu</h3>
+              <p>Comandați până la ora 10:00 și vă aducem comanda în pauza mare. În coș, la „Când doriți comanda?”, scrieți „pauza mare”.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="steps" aria-labelledby="steps-title">
       <h2 id="steps-title" class="visually-hidden">Cum comandați</h2>
       <ol>
@@ -94,23 +125,6 @@
         <li><strong>Verificați</strong> comanda în coș.</li>
         <li><strong>Trimiteți</strong> comanda pe WhatsApp.</li>
       </ol>
-    </section>
-
-    <section class="offers" aria-labelledby="offers-title" data-offers>
-      <h2 id="offers-title" class="visually-hidden">Oferte</h2>
-      <div class="offers__inner">
-        <article class="offer" data-offer="friday">
-          <p class="offer__kicker">În fiecare vineri</p>
-          <h3>Vinerea dulce</h3>
-          <p>După ora 11:00, toate produsele sunt la jumătate de preț, în afară de băuturi. Prețurile reduse apar singure în meniu.</p>
-          <span class="offer__stamp" aria-label="Oferta este activă acum">Acum</span>
-        </article>
-        <article class="offer" data-offer="five">
-          <p class="offer__kicker">Toată săptămâna</p>
-          <h3>Al șaselea, din partea casei</h3>
-          <p>La 5 produse de același fel, de exemplu covrigi, gogoși sau burgeri, al șaselea e gratuit: cel mai ieftin dintre ele. Nu se cumulează cu oferta de vineri.</p>
-        </article>
-      </div>
     </section>
 
     <div id="meniu" class="menus" data-menus></div>
@@ -132,14 +146,12 @@
         <div class="visit__info">
           <h2 id="visit-title">Ne găsiți în centrul istoric</h2>
           <address data-address>Str. 1 Decembrie 1918 nr. 49, Oravița, Caraș-Severin</address>
-          <p><a class="visit__phone" data-phone-link href="tel:+40766991577">Telefon 0766 991 577</a></p>
+          <p><a class="visit__phone" data-phone-link href="tel:+40731306015">Telefon 0731 306 015</a></p>
           <h3>Program</h3>
           <dl class="hours" data-hours>
-            <dt>Luni – Vineri</dt><dd>07:00 – 21:00</dd>
-            <dt>Sâmbătă</dt><dd>08:00 – 21:00</dd>
-            <dt>Duminică</dt><dd>09:00 – 18:00</dd>
+            <dt>Luni – Vineri</dt><dd>07:00 – 14:30</dd>
+            <dt>Sâmbătă – Duminică</dt><dd>Închis</dd>
           </dl>
-          <p class="visit__note">Programul este orientativ.</p>
         </div>
         <div class="visit__map">
           <iframe data-map title="Harta: locația patiseriei Vitrina cu Delicii în Oravița" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
@@ -183,8 +195,8 @@
 
         <div class="field">
           <label for="pickup">Când doriți comanda?</label>
-          <p class="field__hint" id="pickup-hint">Sunteți elev? Scrieți pauza și vă aducem comanda la liceu. În rest, scrieți ora la care treceți sau „acum”, dacă sunteți deja la noi.</p>
-          <input id="pickup" name="pickup" autocomplete="off" required maxlength="60" placeholder="Ex.: pauza de la 10:50, ora 13 sau acum" aria-describedby="pickup-hint pickup-error">
+          <p class="field__hint" id="pickup-hint">Sunteți elev? Comandați până la ora 10:00 și vă aducem comanda la liceu în pauza mare. În rest, scrieți ora la care treceți sau „acum”, dacă sunteți deja la noi.</p>
+          <input id="pickup" name="pickup" autocomplete="off" required maxlength="60" placeholder="Ex.: pauza mare, ora 13 sau acum" aria-describedby="pickup-hint pickup-error">
           <p class="field__error" id="pickup-error" data-error-for="pickup"></p>
         </div>
 
@@ -210,7 +222,7 @@
           <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3Z"/></svg>
           Trimite comanda pe WhatsApp
         </button>
-        <p class="order-form__hint">Se deschide WhatsApp cu mesajul gata scris către <span data-phone-text>0766 991 577</span>. Comanda pleacă doar după ce apăsați „Trimite” în WhatsApp.</p>
+        <p class="order-form__hint">Se deschide WhatsApp cu mesajul gata scris către <span data-phone-text>0731 306 015</span>. Comanda pleacă doar după ce apăsați „Trimite” în WhatsApp.</p>
       </form>
 
     </div>
@@ -218,7 +230,7 @@
 
   <div class="toast" role="status" aria-live="polite" data-toast></div>
 
-  <noscript><p class="noscript">Pentru a vedea meniul și a comanda, activați JavaScript. Ne puteți suna și la <a href="tel:+40766991577">0766 991 577</a>.</p></noscript>
+  <noscript><p class="noscript">Pentru a vedea meniul și a comanda, activați JavaScript. Ne puteți suna și la <a href="tel:+40731306015">0731 306 015</a>.</p></noscript>
 
   <script src="js/menu.js"></script>
   <script src="js/app.js"></script>

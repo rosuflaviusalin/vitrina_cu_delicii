@@ -20,12 +20,15 @@
   const PRODUCTS = new Map();
   MENUS.forEach((menu) =>
     menu.groups.forEach((group) =>
-      group.items.forEach((item) => PRODUCTS.set(item.id, { ...item, menu: menu.title, inOffers: menu.offers !== false }))
+      group.items.forEach((item) => PRODUCTS.set(item.id, { ...item, menu: menu.title, inOffers: menu.offers !== false && item.offers !== false }))
     )
   );
 
-  // Prețurile sunt întregi sau cu 50 de bani; virgula o punem noi, nu depindem de limba browserului.
-  const num = (n) => String(n).replace(".", ",");
+  // 12 → „12”, 2.5 → „2,50”, 11.99 → „11,99”. Virgula o punem noi, nu depindem de limba browserului.
+  const num = (n) => {
+    const r = Math.round(n * 100) / 100;
+    return Number.isInteger(r) ? String(r) : r.toFixed(2).replace(".", ",");
+  };
   const lei = (n) => `${num(n)} lei`;
   const produse = (n) => (n === 1 ? "1 produs" : `${n} produse`);
 
@@ -320,7 +323,7 @@
     $("[data-cart-total]").textContent = lei(priced.total);
     $("[data-cart-offers]").replaceChildren(
       ...(halfPrice && priced.lines.some((l) => l.p.inOffers)
-        ? [el("p", { class: "cart-offer" }, el("span", {}, el("strong", { text: "Vinerea dulce: " }), "jumătate de preț la tot, în afară de băuturi."))]
+        ? [el("p", { class: "cart-offer" }, el("span", {}, el("strong", { text: "Vinerea dulce: " }), "jumătate de preț la tot, în afară de băuturi și de meniul sandviș + suc."))]
         : []),
       ...priced.free.map((f) =>
         el("p", { class: "cart-offer cart-offer--free" },
@@ -403,7 +406,7 @@
   //   Prenume: Andrei
   // Cu oferte, înainte de total apar și rânduri ca:
   //   1× Gogoașă Oreo gratuit, oferta 5+1 – −5 lei
-  //   Reducere de vineri inclusă: jumătate de preț, fără băuturi
+  //   Reducere de vineri inclusă: jumătate de preț, fără băuturi și fără meniul sandviș + suc
   function buildMessage(data) {
     halfPrice = isHalfPrice(); // ora trimiterii decide reducerea de vineri
     const priced = pricing();
@@ -411,7 +414,7 @@
     priced.lines.forEach(({ p, qty, sum }) => lines.push(`${qty}× ${p.name} – ${lei(sum)}`));
     priced.free.forEach((f) => lines.push(`${f.qty}× ${f.p.name} gratuit, oferta 5+1 – −${lei(f.p.price * f.qty)}`));
     if (halfPrice && priced.lines.some((l) => l.p.inOffers)) {
-      lines.push("Reducere de vineri inclusă: jumătate de preț, fără băuturi");
+      lines.push("Reducere de vineri inclusă: jumătate de preț, fără băuturi și fără meniul sandviș + suc");
     }
     lines.push(`Total: ${lei(priced.total)}`);
     lines.push(`Ridicare: ${data.pickup}`);
@@ -422,7 +425,7 @@
   }
 
   const REQUIRED = [
-    ["pickup", "Scrieți când doriți comanda, de exemplu „pauza de la 10:50”, „ora 13” sau „acum”."],
+    ["pickup", "Scrieți când doriți comanda, de exemplu „pauza mare”, „ora 13” sau „acum”."],
     ["lastname", "Scrieți numele de familie."],
     ["firstname", "Scrieți prenumele."],
   ];
@@ -551,8 +554,6 @@
       friday.classList.toggle("is-active", halfPrice);
     }
     if (five) five.hidden = !OFFERS.fivePlusOne;
-    const section = $("[data-offers]");
-    if (section) section.hidden = !OFFERS.fridayHalfPrice && !OFFERS.fivePlusOne;
   }
 
   // Dacă pagina stă deschisă peste ora 11:00 de vineri (sau peste miezul nopții), schimbăm prețurile.
