@@ -46,9 +46,9 @@ window.MENUS = [
       {
         title: "Sandvișuri și pizza",
         items: [
-          { id: "p-sandvis-mic-salam", name: "Sandviș mic cu salam", desc: "", unit: "buc.", price: 8, family: "sandvișuri", tag: "nou" },
-          { id: "p-sandvis-mic-sunca", name: "Sandviș mic cu șuncă", desc: "", unit: "buc.", price: 8, family: "sandvișuri", tag: "nou" },
-          { id: "p-meniu-sandvis-suc", name: "Meniu sandviș mic + suc", desc: "Un sandviș mic cu salam sau șuncă și un suc. Scrieți la observații ce sandviș și ce suc doriți.", unit: "meniu", price: 11.99, tag: "nou", offers: false },
+          { id: "p-sandvis-mic-salam", name: "Mini sandviș cu salam", desc: "", unit: "buc.", price: 8, family: "sandvișuri", tag: "nou" },
+          { id: "p-sandvis-mic-sunca", name: "Mini sandviș cu șuncă", desc: "", unit: "buc.", price: 8, family: "sandvișuri", tag: "nou" },
+          { id: "p-meniu-sandvis-suc", name: "Meniu mini sandviș + suc", desc: "Un mini sandviș cu salam sau șuncă și un suc. Scrieți la observații ce sandviș și ce suc doriți.", unit: "meniu", price: 11.99, tag: "nou", offers: false },
           { id: "p-sandvis-sunca", name: "Sandviș cu șuncă", desc: "", unit: "buc.", price: 12, family: "sandvișuri" },
           { id: "p-sandvis-salam", name: "Sandviș cu salam", desc: "", unit: "buc.", price: 12, family: "sandvișuri" },
           { id: "p-sandvis-muschi", name: "Sandviș cu mușchi file", desc: "", unit: "buc.", price: 12, family: "sandvișuri" },
@@ -61,6 +61,7 @@ window.MENUS = [
         items: [
           { id: "p-strudel-sunca", name: "Ștrudel rustic cu șuncă", desc: "", unit: "buc.", price: 8, family: "foietaje" },
           { id: "p-merdenea-branza", name: "Merdenea cu brânză", desc: "", unit: "buc.", price: 5, family: "foietaje" },
+          { id: "p-cos-zmeura-quark", name: "Coș cu zmeură și brânză quark", desc: "", unit: "130 g", price: 7, family: "foietaje", tag: "nou" },
           { id: "p-mini-cascaval", name: "Mini cu cașcaval", desc: "Se vând la cântar. Fiecare bucată din coș înseamnă 100 g.", unit: "100 g", price: 5.5, family: "produse la cântar" },
           { id: "p-pernute-branza", name: "Pernuțe cu brânză", desc: "Se vând la cântar. Fiecare bucată din coș înseamnă 100 g.", unit: "100 g", price: 5.5, family: "produse la cântar" },
           { id: "p-pernute-visine", name: "Pernuțe cu vișine și mascarpone", desc: "Se vând la cântar. Fiecare bucată din coș înseamnă 100 g.", unit: "100 g", price: 5.5, family: "produse la cântar" },

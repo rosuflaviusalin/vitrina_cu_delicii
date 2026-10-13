@@ -20,7 +20,7 @@ Nume: Popescu
 Prenume: Andrei
 ```
 
-An `Observații: …` line is appended only when the customer fills in the optional notes field. When an offer applies, extra lines go right before `Total:`: `1× Gogoașă Oreo gratuit, oferta 5+1 – −5 lei` for each free item, or `Reducere de vineri inclusă: jumătate de preț, fără băuturi și fără meniul sandviș + suc` on Friday (the item lines then already show the halved prices).
+An `Observații: …` line is appended only when the customer fills in the optional notes field. When an offer applies, extra lines go right before `Total:`: `1× Gogoașă Oreo gratuit, oferta 5+1 – −5 lei` for each free item, or `Reducere de vineri inclusă: jumătate de preț, fără băuturi și fără meniul mini sandviș + suc` on Friday (the item lines then already show the halved prices).
 
 Two offers, set by the owner:
 - **Vinerea dulce:** on Fridays from 11:00 Romanian time (`Europe/Bucharest`, not the phone's time zone), everything except drinks and items marked `offers: false` (the 11,99 lei sandwich + drink combo) is half price. The time the order is sent decides. Each unit price is halved and rounded to 0.50 lei (5,5 → 3).
