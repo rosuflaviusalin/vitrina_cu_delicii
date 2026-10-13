@@ -48,7 +48,6 @@ window.MENUS = [
         items: [
           { id: "p-sandvis-mic-salam", name: "Mini sandviș cu salam", desc: "", unit: "buc.", price: 8, family: "sandvișuri", tag: "nou" },
           { id: "p-sandvis-mic-sunca", name: "Mini sandviș cu șuncă", desc: "", unit: "buc.", price: 8, family: "sandvișuri", tag: "nou" },
-          { id: "p-meniu-sandvis-suc", name: "Meniu mini sandviș + suc", desc: "Un mini sandviș cu salam sau șuncă și un suc. Scrieți la observații ce sandviș și ce suc doriți.", unit: "meniu", price: 11.99, tag: "nou", offers: false },
           { id: "p-sandvis-sunca", name: "Sandviș cu șuncă", desc: "", unit: "buc.", price: 12, family: "sandvișuri" },
           { id: "p-sandvis-salam", name: "Sandviș cu salam", desc: "", unit: "buc.", price: 12, family: "sandvișuri" },
           { id: "p-sandvis-muschi", name: "Sandviș cu mușchi file", desc: "", unit: "buc.", price: 12, family: "sandvișuri" },
@@ -113,6 +112,7 @@ window.MENUS = [
       {
         title: "Meniuri",
         items: [
+          { id: "p-meniu-sandvis-suc", name: "Meniu mini sandviș + suc", desc: "Un mini sandviș cu salam sau șuncă și un suc. Scrieți la observații ce sandviș și ce suc doriți.", unit: "meniu", price: 11.99, tag: "nou", offers: false },
           { id: "f-meniu-mini-crispy", name: "Meniu mini crispy de pui", desc: "Crispy de pui 2 bucăți, cartofi pai 100 g, salată de varză, sos de usturoi.", unit: "meniu", price: 16, family: "meniuri crispy" },
           { id: "f-meniu-mega-crispy", name: "Meniu mega crispy de pui", desc: "Crispy de pui 4 bucăți, cartofi pai 200 g, salată de varză, sos de usturoi.", unit: "meniu", price: 26, family: "meniuri crispy" },
           { id: "f-meniu-mini-aripioare", name: "Meniu mini aripioare crispy", desc: "Aripioare crispy de pui 4 bucăți, cartofi pai 100 g, salată de varză, sos de usturoi.", unit: "meniu", price: 16, family: "meniuri crispy" },
