@@ -20,7 +20,12 @@ Nume: Popescu
 Prenume: Andrei
 ```
 
-An `Observații: …` line is appended only when the customer fills in the optional notes field.
+An `Observații: …` line is appended only when the customer fills in the optional notes field. When an offer applies, extra lines go right before `Total:`: `1× Gogoașă Oreo gratuit, oferta 5+1 – −5 lei` for each free item, or `Reducere de vineri inclusă: jumătate de preț, fără băuturi` on Friday (the item lines then already show the halved prices).
+
+Two offers, set by the owner:
+- **Vinerea dulce:** on Fridays from 11:00 Romanian time (`Europe/Bucharest`, not the phone's time zone), everything except drinks is half price. The time the order is sent decides. Each unit price is halved and rounded to 0.50 lei (5,5 → 3).
+- **5+1:** for every 6 products of the same `family` (6 covrigi, 6 burgeri…), the cheapest is free. Families are narrow on purpose, so 5 covrigi never earn a cake. Drinks are excluded.
+- The offers never stack: on Friday from 11:00 only the half price applies.
 
 All user-facing copy is Romanian, with correct diacritics (ă, â, î, ș, ț — comma-below, not cedilla) and formal address ("dumneavoastră", "Alegeți"). Motto: "Gust de neuitat, în inima Oraviței". Some products are frozen, so copy must not claim that everything is fresh, homemade or made each morning. Menu products come from the shop's printed menu. Opening hours are still placeholders and need to be replaced with real data.
 
@@ -46,7 +51,8 @@ Deploy by uploading the folder as-is to any static host (Netlify, GitHub Pages, 
 
 ## Architecture
 
-- `js/menu.js`: the only file to edit for content. It sets two globals: `window.SHOP` (name, motto, WhatsApp number in international format without `+`, address, Maps query, hours) and `window.MENUS` (menus → groups → items). Each item has a unique `id`, which is the cart key, plus `name`, `desc`, `unit`, `price` (lei; whole or half lei such as `6.5`, shown with a decimal comma) and an optional `tag`. Exception: the address, phone and hours are also written statically in `index.html` (visible markup plus the JSON-LD `Bakery` block in `<head>`), so crawlers and visitors without JavaScript can see them. app.js overwrites the visible copy from `SHOP`, so update both places when this data changes.
+- `js/menu.js`: the only file to edit for content. It sets two globals: `window.SHOP` (name, motto, WhatsApp number in international format without `+`, address, Maps query, hours) and `window.MENUS` (menus → groups → items). `SHOP.offers` switches the two offers on or off, and a menu with `offers: false` (Băuturi) is excluded from both. Each item has a unique `id`, which is the cart key, an offer `family` (except drinks), plus `name`, `desc`, `unit`, `price` (lei; whole or half lei such as `6.5`, shown with a decimal comma) and an optional `tag`. Exception: the address, phone and hours are also written statically in `index.html` (visible markup plus the JSON-LD `Bakery` block in `<head>`), so crawlers and visitors without JavaScript can see them. app.js overwrites the visible copy from `SHOP`, so update both places when this data changes.
+- Offers: `pricing()` in app.js is the single place that computes line prices, free items and the total; the menu, cart, bottom bar and WhatsApp message all read from it. A 30-second timer re-renders prices if the page stays open across Friday 11:00. Prices are formatted with `num()`/`lei()` (decimal comma written by hand, so it does not depend on the browser's locale). To test the Friday rule, use `page.clock.install(time=...)` and a non-Romanian `timezone_id`.
 - `js/app.js`: an IIFE that renders everything from those globals. Most of `index.html` is empty containers marked with `data-*` hooks that app.js fills, including `data-menus`, the address, hours and the map iframe `src`. Key pieces:
   - The cart is a `Map<id, qty>` persisted to `localStorage` under the key `vitrina-cos-v1`. On load, ids missing from the menu are dropped, so renaming an item's `id` silently empties that line from saved carts.
   - `setQty()` is the single mutation path. It saves the cart, swaps that item's menu control (an "Adaugă" button or a −/+ stepper) and updates the header badge and bottom cart bar. If the cart dialog is open, it re-renders the dialog too.

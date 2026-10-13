@@ -2,6 +2,8 @@
 // Fiecare produs are un `id` unic (folosit în coș), `name`, `desc`, `unit` (gramaj/volum) și `price` în lei
 // (număr întreg sau cu jumătate de leu, de ex. 6.5).
 // Puneți `tag: "nou"` sau `tag: "specialitatea casei"` pentru o mică etichetă lângă nume.
+// `family` grupează produsele de același fel pentru oferta 5+1 (la 5 covrigi, al 6-lea covrig e gratuit).
+// Produsele fără `family` și meniurile cu `offers: false` (băuturile) nu intră în nicio ofertă.
 
 window.SHOP = {
   name: "Vitrina cu Delicii",
@@ -10,6 +12,11 @@ window.SHOP = {
   whatsapp: "40766991577", // format internațional, fără + și fără spații
   address: "Str. 1 Decembrie 1918 nr. 49, Oravița, Caraș-Severin",
   mapsQuery: "Strada 1 Decembrie 1918 49, Oravița, Caraș-Severin, Romania",
+  // Ofertele: puneți `false` ca să opriți una.
+  offers: {
+    fridayHalfPrice: true, // vinerea, de la ora 11:00 (ora României), jumătate de preț
+    fivePlusOne: true,     // la 5 produse din aceeași familie, cel mai ieftin dintre 6 e gratuit
+  },
   hours: [
     ["Luni – Vineri", "07:00 – 21:00"],
     ["Sâmbătă", "08:00 – 21:00"],
@@ -26,59 +33,59 @@ window.MENUS = [
       {
         title: "Croissante și covrigi",
         items: [
-          { id: "p-croissant-unt", name: "Croissant cu unt", desc: "", unit: "buc.", price: 5 },
-          { id: "p-croissant-ciocolata", name: "Croissant cu ciocolată", desc: "", unit: "buc.", price: 6 },
-          { id: "p-croissant-zmeura", name: "Croissant cu zmeură", desc: "", unit: "buc.", price: 6 },
-          { id: "p-covrig-seminte", name: "Covrig cu semințe", desc: "", unit: "buc.", price: 3 },
-          { id: "p-covrig-sare", name: "Covrig cu sare", desc: "", unit: "buc.", price: 3 },
-          { id: "p-covrig-cascaval", name: "Covrig cu cașcaval", desc: "", unit: "buc.", price: 4 },
-          { id: "p-covridog", name: "Covridog", desc: "", unit: "buc.", price: 6 },
-          { id: "p-covriking", name: "Covriking", desc: "", unit: "buc.", price: 8 },
+          { id: "p-croissant-unt", name: "Croissant cu unt", desc: "", unit: "buc.", price: 5, family: "croissante" },
+          { id: "p-croissant-ciocolata", name: "Croissant cu ciocolată", desc: "", unit: "buc.", price: 6, family: "croissante" },
+          { id: "p-croissant-zmeura", name: "Croissant cu zmeură", desc: "", unit: "buc.", price: 6, family: "croissante" },
+          { id: "p-covrig-seminte", name: "Covrig cu semințe", desc: "", unit: "buc.", price: 3, family: "covrigi" },
+          { id: "p-covrig-sare", name: "Covrig cu sare", desc: "", unit: "buc.", price: 3, family: "covrigi" },
+          { id: "p-covrig-cascaval", name: "Covrig cu cașcaval", desc: "", unit: "buc.", price: 4, family: "covrigi" },
+          { id: "p-covridog", name: "Covridog", desc: "", unit: "buc.", price: 6, family: "covridog și covriking" },
+          { id: "p-covriking", name: "Covriking", desc: "", unit: "buc.", price: 8, family: "covridog și covriking" },
         ],
       },
       {
         title: "Sandvișuri și pizza",
         items: [
-          { id: "p-sandvis-sunca", name: "Sandviș cu șuncă", desc: "", unit: "buc.", price: 12 },
-          { id: "p-sandvis-salam", name: "Sandviș cu salam", desc: "", unit: "buc.", price: 12 },
-          { id: "p-sandvis-muschi", name: "Sandviș cu mușchi file", desc: "", unit: "buc.", price: 12 },
-          { id: "p-pizza-felie", name: "Felie de pizza", desc: "", unit: "felie", price: 10 },
-          { id: "p-pizza-caprese", name: "Pizza caprese", desc: "Cu roșii și mozzarella.", unit: "buc.", price: 6 },
+          { id: "p-sandvis-sunca", name: "Sandviș cu șuncă", desc: "", unit: "buc.", price: 12, family: "sandvișuri" },
+          { id: "p-sandvis-salam", name: "Sandviș cu salam", desc: "", unit: "buc.", price: 12, family: "sandvișuri" },
+          { id: "p-sandvis-muschi", name: "Sandviș cu mușchi file", desc: "", unit: "buc.", price: 12, family: "sandvișuri" },
+          { id: "p-pizza-felie", name: "Felie de pizza", desc: "", unit: "felie", price: 10, family: "pizza" },
+          { id: "p-pizza-caprese", name: "Pizza caprese", desc: "Cu roșii și mozzarella.", unit: "buc.", price: 6, family: "pizza" },
         ],
       },
       {
         title: "Foietaje",
         items: [
-          { id: "p-strudel-sunca", name: "Ștrudel rustic cu șuncă", desc: "", unit: "buc.", price: 8 },
-          { id: "p-merdenea-branza", name: "Merdenea cu brânză", desc: "", unit: "buc.", price: 5 },
-          { id: "p-mini-cascaval", name: "Mini cu cașcaval", desc: "Se vând la cântar. Fiecare bucată din coș înseamnă 100 g.", unit: "100 g", price: 5.5 },
-          { id: "p-pernute-branza", name: "Pernuțe cu brânză", desc: "Se vând la cântar. Fiecare bucată din coș înseamnă 100 g.", unit: "100 g", price: 5.5 },
-          { id: "p-pernute-visine", name: "Pernuțe cu vișine și mascarpone", desc: "Se vând la cântar. Fiecare bucată din coș înseamnă 100 g.", unit: "100 g", price: 5.5 },
+          { id: "p-strudel-sunca", name: "Ștrudel rustic cu șuncă", desc: "", unit: "buc.", price: 8, family: "foietaje" },
+          { id: "p-merdenea-branza", name: "Merdenea cu brânză", desc: "", unit: "buc.", price: 5, family: "foietaje" },
+          { id: "p-mini-cascaval", name: "Mini cu cașcaval", desc: "Se vând la cântar. Fiecare bucată din coș înseamnă 100 g.", unit: "100 g", price: 5.5, family: "produse la cântar" },
+          { id: "p-pernute-branza", name: "Pernuțe cu brânză", desc: "Se vând la cântar. Fiecare bucată din coș înseamnă 100 g.", unit: "100 g", price: 5.5, family: "produse la cântar" },
+          { id: "p-pernute-visine", name: "Pernuțe cu vișine și mascarpone", desc: "Se vând la cântar. Fiecare bucată din coș înseamnă 100 g.", unit: "100 g", price: 5.5, family: "produse la cântar" },
         ],
       },
       {
         title: "Gogoși",
         items: [
-          { id: "p-gogoasa-fistic", name: "Gogoașă cu fistic", desc: "", unit: "buc.", price: 6 },
-          { id: "p-gogoasa-biscoff", name: "Gogoașă Biscoff", desc: "", unit: "buc.", price: 6 },
-          { id: "p-gogoasa-zmeura", name: "Gogoașă cu zmeură", desc: "", unit: "buc.", price: 6 },
-          { id: "p-gogoasa-ciocolata", name: "Gogoașă cu ciocolată", desc: "", unit: "buc.", price: 5 },
-          { id: "p-gogoasa-capsuni", name: "Gogoașă cu căpșuni", desc: "", unit: "buc.", price: 5 },
-          { id: "p-gogoasa-oreo", name: "Gogoașă Oreo", desc: "", unit: "buc.", price: 5 },
-          { id: "p-gogoasa-nutella", name: "Gogoașă cu Nutella", desc: "", unit: "buc.", price: 5 },
+          { id: "p-gogoasa-fistic", name: "Gogoașă cu fistic", desc: "", unit: "buc.", price: 6, family: "gogoși" },
+          { id: "p-gogoasa-biscoff", name: "Gogoașă Biscoff", desc: "", unit: "buc.", price: 6, family: "gogoși" },
+          { id: "p-gogoasa-zmeura", name: "Gogoașă cu zmeură", desc: "", unit: "buc.", price: 6, family: "gogoși" },
+          { id: "p-gogoasa-ciocolata", name: "Gogoașă cu ciocolată", desc: "", unit: "buc.", price: 5, family: "gogoși" },
+          { id: "p-gogoasa-capsuni", name: "Gogoașă cu căpșuni", desc: "", unit: "buc.", price: 5, family: "gogoși" },
+          { id: "p-gogoasa-oreo", name: "Gogoașă Oreo", desc: "", unit: "buc.", price: 5, family: "gogoși" },
+          { id: "p-gogoasa-nutella", name: "Gogoașă cu Nutella", desc: "", unit: "buc.", price: 5, family: "gogoși" },
         ],
       },
       {
         title: "Cofetărie",
         items: [
-          { id: "p-savarina", name: "Savarină", desc: "", unit: "buc.", price: 10 },
-          { id: "p-ecler", name: "Ecler", desc: "", unit: "buc.", price: 7 },
-          { id: "p-mini-amandina", name: "Mini amandină", desc: "", unit: "buc.", price: 6 },
-          { id: "p-snickers", name: "Prăjitură Snickers", desc: "", unit: "buc.", price: 6 },
-          { id: "p-philadelphia-mango", name: "Philadelphia cu mango", desc: "", unit: "buc.", price: 10 },
-          { id: "p-philadelphia", name: "Philadelphia", desc: "", unit: "buc.", price: 10 },
-          { id: "p-profiterol", name: "Profiterol", desc: "", unit: "buc.", price: 10 },
-          { id: "p-tarta-fructe", name: "Tartă cu fructe", desc: "", unit: "buc.", price: 6.5 },
+          { id: "p-savarina", name: "Savarină", desc: "", unit: "buc.", price: 10, family: "prăjituri" },
+          { id: "p-ecler", name: "Ecler", desc: "", unit: "buc.", price: 7, family: "prăjituri" },
+          { id: "p-mini-amandina", name: "Mini amandină", desc: "", unit: "buc.", price: 6, family: "prăjituri" },
+          { id: "p-snickers", name: "Prăjitură Snickers", desc: "", unit: "buc.", price: 6, family: "prăjituri" },
+          { id: "p-philadelphia-mango", name: "Philadelphia cu mango", desc: "", unit: "buc.", price: 10, family: "prăjituri" },
+          { id: "p-philadelphia", name: "Philadelphia", desc: "", unit: "buc.", price: 10, family: "prăjituri" },
+          { id: "p-profiterol", name: "Profiterol", desc: "", unit: "buc.", price: 10, family: "prăjituri" },
+          { id: "p-tarta-fructe", name: "Tartă cu fructe", desc: "", unit: "buc.", price: 6.5, family: "prăjituri" },
         ],
       },
     ],
@@ -91,21 +98,21 @@ window.MENUS = [
       {
         title: "Burgeri și sandvișuri",
         items: [
-          { id: "f-plescavita-porc", name: "Pleșcaviță de porc", desc: "Chiflă, chiftea de porc, salată, cartofi, sosuri.", unit: "400 g", price: 22 },
-          { id: "f-burger-pui", name: "Burger de pui", desc: "Chiflă, chiftea de pui, cheddar, salată, cartofi, sosuri.", unit: "300 g", price: 20 },
-          { id: "f-snitel-pui", name: "Șnițel de pui", desc: "Chiflă, șnițel de pui, cartofi, salată, sosuri.", unit: "300 g", price: 20 },
-          { id: "f-burger-crispy", name: "Burger crispy de pui", desc: "Chiflă, 2 bucăți crispy, cheddar, bacon, salată, ceapă caramelizată, sos de burger.", unit: "300 g", price: 22 },
-          { id: "f-burger-vita", name: "Burger de vită", desc: "Chiflă, chiftea de vită, salată, bacon, ceapă caramelizată, cartofi, sos.", unit: "300 g", price: 30 },
-          { id: "f-cartofi", name: "Cartofi prăjiți cu sos", desc: "", unit: "porție", price: 6 },
+          { id: "f-plescavita-porc", name: "Pleșcaviță de porc", desc: "Chiflă, chiftea de porc, salată, cartofi, sosuri.", unit: "400 g", price: 22, family: "burgeri" },
+          { id: "f-burger-pui", name: "Burger de pui", desc: "Chiflă, chiftea de pui, cheddar, salată, cartofi, sosuri.", unit: "300 g", price: 20, family: "burgeri" },
+          { id: "f-snitel-pui", name: "Șnițel de pui", desc: "Chiflă, șnițel de pui, cartofi, salată, sosuri.", unit: "300 g", price: 20, family: "burgeri" },
+          { id: "f-burger-crispy", name: "Burger crispy de pui", desc: "Chiflă, 2 bucăți crispy, cheddar, bacon, salată, ceapă caramelizată, sos de burger.", unit: "300 g", price: 22, family: "burgeri" },
+          { id: "f-burger-vita", name: "Burger de vită", desc: "Chiflă, chiftea de vită, salată, bacon, ceapă caramelizată, cartofi, sos.", unit: "300 g", price: 30, family: "burgeri" },
+          { id: "f-cartofi", name: "Cartofi prăjiți cu sos", desc: "", unit: "porție", price: 6, family: "cartofi prăjiți" },
         ],
       },
       {
         title: "Meniuri",
         items: [
-          { id: "f-meniu-mini-crispy", name: "Meniu mini crispy de pui", desc: "Crispy de pui 2 bucăți, cartofi pai 100 g, salată de varză, sos de usturoi.", unit: "meniu", price: 19 },
-          { id: "f-meniu-mega-crispy", name: "Meniu mega crispy de pui", desc: "Crispy de pui 4 bucăți, cartofi pai 200 g, salată de varză, sos de usturoi.", unit: "meniu", price: 29 },
-          { id: "f-meniu-mini-aripioare", name: "Meniu mini aripioare crispy", desc: "Aripioare crispy de pui 4 bucăți, cartofi pai 100 g, salată de varză, sos de usturoi.", unit: "meniu", price: 19 },
-          { id: "f-meniu-mega-aripioare", name: "Meniu mega aripioare crispy", desc: "Aripioare crispy de pui 8 bucăți, cartofi pai 200 g, salată de varză, sos de usturoi.", unit: "meniu", price: 29 },
+          { id: "f-meniu-mini-crispy", name: "Meniu mini crispy de pui", desc: "Crispy de pui 2 bucăți, cartofi pai 100 g, salată de varză, sos de usturoi.", unit: "meniu", price: 19, family: "meniuri crispy" },
+          { id: "f-meniu-mega-crispy", name: "Meniu mega crispy de pui", desc: "Crispy de pui 4 bucăți, cartofi pai 200 g, salată de varză, sos de usturoi.", unit: "meniu", price: 29, family: "meniuri crispy" },
+          { id: "f-meniu-mini-aripioare", name: "Meniu mini aripioare crispy", desc: "Aripioare crispy de pui 4 bucăți, cartofi pai 100 g, salată de varză, sos de usturoi.", unit: "meniu", price: 19, family: "meniuri crispy" },
+          { id: "f-meniu-mega-aripioare", name: "Meniu mega aripioare crispy", desc: "Aripioare crispy de pui 8 bucăți, cartofi pai 200 g, salată de varză, sos de usturoi.", unit: "meniu", price: 29, family: "meniuri crispy" },
         ],
       },
     ],
@@ -113,6 +120,7 @@ window.MENUS = [
   {
     id: "bauturi",
     title: "Băuturi",
+    offers: false,
     intro: "Cafea pentru dimineață și sucuri reci pentru restul zilei.",
     groups: [
       {

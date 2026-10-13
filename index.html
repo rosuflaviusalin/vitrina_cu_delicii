@@ -96,6 +96,23 @@
       </ol>
     </section>
 
+    <section class="offers" aria-labelledby="offers-title" data-offers>
+      <h2 id="offers-title" class="visually-hidden">Oferte</h2>
+      <div class="offers__inner">
+        <article class="offer" data-offer="friday">
+          <p class="offer__kicker">În fiecare vineri</p>
+          <h3>Vinerea dulce</h3>
+          <p>După ora 11:00, toate produsele sunt la jumătate de preț, în afară de băuturi. Prețurile reduse apar singure în meniu.</p>
+          <span class="offer__stamp" aria-label="Oferta este activă acum">Acum</span>
+        </article>
+        <article class="offer" data-offer="five">
+          <p class="offer__kicker">Toată săptămâna</p>
+          <h3>Al șaselea, din partea casei</h3>
+          <p>La 5 produse de același fel, de exemplu covrigi, gogoși sau burgeri, al șaselea e gratuit: cel mai ieftin dintre ele. Nu se cumulează cu oferta de vineri.</p>
+        </article>
+      </div>
+    </section>
+
     <div id="meniu" class="menus" data-menus></div>
 
     <section class="story" aria-labelledby="story-title">
@@ -158,6 +175,7 @@
       <ul class="cart__items" data-cart-items></ul>
 
       <form class="order-form" data-order-form novalidate>
+        <div class="cart__offers" data-cart-offers></div>
         <div class="cart__total">
           <span>Total</span>
           <strong data-cart-total>0 lei</strong>

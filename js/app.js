@@ -20,11 +20,13 @@
   const PRODUCTS = new Map();
   MENUS.forEach((menu) =>
     menu.groups.forEach((group) =>
-      group.items.forEach((item) => PRODUCTS.set(item.id, { ...item, menu: menu.title }))
+      group.items.forEach((item) => PRODUCTS.set(item.id, { ...item, menu: menu.title, inOffers: menu.offers !== false }))
     )
   );
 
-  const lei = (n) => `${n.toLocaleString("ro-RO")} lei`;
+  // Prețurile sunt întregi sau cu 50 de bani; virgula o punem noi, nu depindem de limba browserului.
+  const num = (n) => String(n).replace(".", ",");
+  const lei = (n) => `${num(n)} lei`;
   const produse = (n) => (n === 1 ? "1 produs" : `${n} produse`);
 
   // ---------- Coș ----------
@@ -55,7 +57,73 @@
   }
 
   const cartCount = () => [...cart.values()].reduce((a, b) => a + b, 0);
-  const cartTotal = () => [...cart].reduce((sum, [id, qty]) => sum + PRODUCTS.get(id).price * qty, 0);
+
+  // ---------- Oferte ----------
+
+  const OFFERS = SHOP.offers || {};
+  const FRIDAY_FROM_HOUR = 11;
+  const BUY = 5; // la 5 produse cumpărate, al 6-lea e gratuit
+
+  // Ziua și ora din Oravița, indiferent de fusul orar al telefonului.
+  function shopClock() {
+    const now = new Date();
+    try {
+      const parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Europe/Bucharest", weekday: "short", hour: "numeric", hourCycle: "h23",
+      }).formatToParts(now);
+      const get = (type) => parts.find((x) => x.type === type).value;
+      const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(get("weekday"));
+      return { day, hour: Number(get("hour")) % 24 };
+    } catch (_) {
+      return { day: now.getDay(), hour: now.getHours() };
+    }
+  }
+
+  function isHalfPrice() {
+    if (!OFFERS.fridayHalfPrice) return false;
+    const { day, hour } = shopClock();
+    return day === 5 && hour >= FRIDAY_FROM_HOUR;
+  }
+
+  let halfPrice = isHalfPrice();
+
+  // Jumătate de preț, rotunjit la 50 de bani (5,5 lei → 3 lei).
+  const unitPrice = (p) => (halfPrice && p.inOffers ? Math.round(p.price) / 2 : p.price);
+
+  // Coșul cu prețurile de acum: liniile, produsele gratuite (5+1) și totalul.
+  // Ofertele nu se cumulează: vinerea după 11:00 se aplică doar jumătatea de preț.
+  function pricing() {
+    const lines = [...cart].map(([id, qty]) => {
+      const p = PRODUCTS.get(id);
+      const each = unitPrice(p);
+      return { id, p, qty, each, sum: each * qty };
+    });
+    const free = [];   // { p, qty }
+    const almost = []; // familiile unde mai lipsește un produs
+    if (OFFERS.fivePlusOne && !halfPrice) {
+      const families = new Map();
+      lines.forEach((l) => {
+        if (!l.p.inOffers || !l.p.family) return;
+        const units = families.get(l.p.family) || [];
+        for (let i = 0; i < l.qty; i++) units.push(l.p);
+        families.set(l.p.family, units);
+      });
+      families.forEach((units, family) => {
+        const freeCount = Math.floor(units.length / (BUY + 1));
+        if (units.length % (BUY + 1) === BUY) almost.push(family);
+        units.sort((a, b) => a.price - b.price).slice(0, freeCount).forEach((p) => {
+          const same = free.find((f) => f.p === p);
+          if (same) same.qty++;
+          else free.push({ p, qty: 1 });
+        });
+      });
+    }
+    const subtotal = lines.reduce((sum, l) => sum + l.sum, 0);
+    const discount = free.reduce((sum, f) => sum + f.p.price * f.qty, 0);
+    return { lines, free, almost, total: subtotal - discount };
+  }
+
+  const cartTotal = () => pricing().total;
 
   // ---------- Meniuri ----------
 
@@ -101,9 +169,21 @@
       item.desc ? el("p", { class: "item__desc", text: item.desc }) : null,
       el("p", { class: "item__unit", text: item.unit }),
       el("div", { class: "item__side" },
-        el("p", { class: "item__price" }, item.price.toLocaleString("ro-RO"), el("small", { text: " lei" })),
+        el("p", { class: "item__price", "data-price": item.id }),
         el("div", { class: "item__control", "data-control": item.id })
       )
+    );
+  }
+
+  function updatePrice(id) {
+    const p = PRODUCTS.get(id);
+    const each = unitPrice(p);
+    const node = $(`[data-price="${id}"]`);
+    if (!node) return;
+    node.replaceChildren(
+      ...(each !== p.price ? [el("s", { class: "item__old", text: num(p.price) }), " "] : []),
+      num(each),
+      el("small", { text: " lei" })
     );
   }
 
@@ -162,6 +242,16 @@
     toastTimer = setTimeout(() => t.classList.remove("is-visible"), 1800);
   }
 
+  // După ce s-a adăugat un produs: anunță când oferta 5+1 e aproape sau tocmai s-a aplicat.
+  function offerHint(id) {
+    const p = PRODUCTS.get(id);
+    if (!OFFERS.fivePlusOne || halfPrice || !p.inOffers || !p.family) return "";
+    const n = [...cart].reduce((sum, [i, q]) => sum + (PRODUCTS.get(i).family === p.family ? q : 0), 0);
+    if (n % (BUY + 1) === BUY) return `Mai luați un produs din ${p.family} și cel mai ieftin e gratuit`;
+    if (n % (BUY + 1) === 0) return `Oferta 5+1: un produs din ${p.family} e gratuit`;
+    return "";
+  }
+
   function bump() {
     countBadge.classList.remove("is-bumped");
     void countBadge.offsetWidth; // repornește animația
@@ -178,10 +268,12 @@
       const id = add.dataset.add;
       setQty(id, 1);
       bump();
-      toast(`${PRODUCTS.get(id).name} — adăugat în coș`);
+      toast(offerHint(id) || `${PRODUCTS.get(id).name} — adăugat în coș`);
     } else if (inc) {
       setQty(inc.dataset.inc, (cart.get(inc.dataset.inc) || 0) + 1);
       bump();
+      const hint = offerHint(inc.dataset.inc);
+      if (hint) toast(hint);
     } else if (dec) {
       setQty(dec.dataset.dec, (cart.get(dec.dataset.dec) || 0) - 1);
     } else if (remove) {
@@ -202,15 +294,19 @@
       ? (document.activeElement.dataset.inc || document.activeElement.dataset.dec) : null;
     const focusedKind = focusedId && (document.activeElement.hasAttribute("data-inc") ? "inc" : "dec");
 
+    const priced = pricing();
     list.replaceChildren(
-      ...[...cart].map(([id, qty]) => {
-        const p = PRODUCTS.get(id);
+      ...priced.lines.map(({ id, p, each, sum }) => {
         return el("li", { class: "cart-line" },
           el("div", {},
             el("p", { class: "cart-line__name", text: p.name }),
-            el("p", { class: "cart-line__each", text: `${lei(p.price)} / ${p.unit}` })
+            el("p", { class: "cart-line__each" },
+              each !== p.price ? el("s", { text: lei(p.price) }) : null,
+              each !== p.price ? " " : null,
+              `${lei(each)} / ${p.unit}`
+            )
           ),
-          el("p", { class: "cart-line__sum", text: lei(p.price * qty) }),
+          el("p", { class: "cart-line__sum", text: lei(sum) }),
           el("div", { class: "cart-line__controls" },
             stepper(id, p.name),
             el("button", { type: "button", class: "link-button", "data-remove": id, text: "Șterge" })
@@ -221,7 +317,21 @@
 
     const empty = cart.size === 0;
     $("[data-cart-empty]").hidden = !empty;
-    $("[data-cart-total]").textContent = lei(cartTotal());
+    $("[data-cart-total]").textContent = lei(priced.total);
+    $("[data-cart-offers]").replaceChildren(
+      ...(halfPrice && priced.lines.some((l) => l.p.inOffers)
+        ? [el("p", { class: "cart-offer" }, el("span", {}, el("strong", { text: "Vinerea dulce: " }), "jumătate de preț la tot, în afară de băuturi."))]
+        : []),
+      ...priced.free.map((f) =>
+        el("p", { class: "cart-offer cart-offer--free" },
+          el("span", {}, el("strong", { text: "Gratuit, oferta 5+1: " }), `${f.qty}× ${f.p.name}`),
+          el("span", { class: "cart-offer__sum", text: `−${lei(f.p.price * f.qty)}` })
+        )
+      ),
+      ...priced.almost.map((family) =>
+        el("p", { class: "cart-offer cart-offer--hint", text: `Mai luați un produs din ${family} și cel mai ieftin vă iese gratuit.` })
+      )
+    );
     form.hidden = empty;
 
     if (focusedId) {
@@ -291,13 +401,19 @@
   //   Ridicare: pauza de la 10:50
   //   Nume: Popescu
   //   Prenume: Andrei
+  // Cu oferte, înainte de total apar și rânduri ca:
+  //   1× Gogoașă Oreo gratuit, oferta 5+1 – −5 lei
+  //   Reducere de vineri inclusă: jumătate de preț, fără băuturi
   function buildMessage(data) {
+    halfPrice = isHalfPrice(); // ora trimiterii decide reducerea de vineri
+    const priced = pricing();
     const lines = ["Comandă nouă:"];
-    for (const [id, qty] of cart) {
-      const p = PRODUCTS.get(id);
-      lines.push(`${qty}× ${p.name} – ${lei(p.price * qty)}`);
+    priced.lines.forEach(({ p, qty, sum }) => lines.push(`${qty}× ${p.name} – ${lei(sum)}`));
+    priced.free.forEach((f) => lines.push(`${f.qty}× ${f.p.name} gratuit, oferta 5+1 – −${lei(f.p.price * f.qty)}`));
+    if (halfPrice && priced.lines.some((l) => l.p.inOffers)) {
+      lines.push("Reducere de vineri inclusă: jumătate de preț, fără băuturi");
     }
-    lines.push(`Total: ${lei(cartTotal())}`);
+    lines.push(`Total: ${lei(priced.total)}`);
     lines.push(`Ridicare: ${data.pickup}`);
     lines.push(`Nume: ${data.lastname}`);
     lines.push(`Prenume: ${data.firstname}`);
@@ -425,12 +541,41 @@
     $("[data-year]").textContent = String(new Date().getFullYear());
   }
 
+  // ---------- Cartonașele cu oferte ----------
+
+  function updateOffers() {
+    const friday = $("[data-offer=\"friday\"]");
+    const five = $("[data-offer=\"five\"]");
+    if (friday) {
+      friday.hidden = !OFFERS.fridayHalfPrice;
+      friday.classList.toggle("is-active", halfPrice);
+    }
+    if (five) five.hidden = !OFFERS.fivePlusOne;
+    const section = $("[data-offers]");
+    if (section) section.hidden = !OFFERS.fridayHalfPrice && !OFFERS.fivePlusOne;
+  }
+
+  // Dacă pagina stă deschisă peste ora 11:00 de vineri (sau peste miezul nopții), schimbăm prețurile.
+  function watchClock() {
+    setInterval(() => {
+      const now = isHalfPrice();
+      if (now === halfPrice) return;
+      halfPrice = now;
+      PRODUCTS.forEach((_, id) => updatePrice(id));
+      updateSummary();
+      updateOffers();
+      if (cartDialog.open) renderCart();
+    }, 30000);
+  }
+
   // ---------- Pornire ----------
 
   loadCart();
   renderMenus();
-  MENUS.forEach((m) => m.groups.forEach((g) => g.items.forEach((i) => updateItemControl(i.id))));
+  MENUS.forEach((m) => m.groups.forEach((g) => g.items.forEach((i) => { updateItemControl(i.id); updatePrice(i.id); })));
   updateSummary();
+  updateOffers();
+  watchClock();
   fillShopInfo();
   watchSections();
   // Versiunile anterioare țineau minte numele clientului; îl ștergem.

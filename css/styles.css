@@ -345,6 +345,83 @@ a { color: inherit; }
   .steps ol { grid-template-columns: repeat(3, 1fr); gap: 24px; padding-block: 24px; }
 }
 
+/* ---------- Oferte: cartonașe de vitrină ---------- */
+
+.offers[hidden], .offer[hidden] { display: none; }
+.offers__inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 24px var(--gutter) 0;
+  display: grid;
+  gap: 16px;
+}
+.offer {
+  position: relative;
+  padding: 26px 22px 20px;
+  background: #fffdf7;
+  border-radius: var(--radius-s);
+  /* Ramă dublă subțire, ca pe etichetele de preț vechi */
+  box-shadow:
+    inset 0 0 0 5px #fffdf7,
+    inset 0 0 0 6px rgba(142, 68, 33, .45),
+    0 1px 0 var(--line),
+    0 14px 30px -24px rgba(90, 42, 20, .5);
+  overflow: hidden;
+}
+.offer::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 6px;
+  background: var(--lattice);
+}
+.offer__kicker {
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--rose);
+}
+.offer h3 {
+  margin: 4px 0 8px;
+  font-size: clamp(1.6rem, 5vw, 2rem);
+  font-style: italic;
+  color: var(--walnut);
+}
+.offer p:last-of-type { color: var(--ink-soft); max-width: 34em; }
+.offer h3 { padding-right: 64px; }
+
+/* Ștampila rotundă „Acum”, vizibilă doar cât oferta e activă */
+.offer__stamp {
+  display: none;
+  position: absolute;
+  top: 18px; right: 16px;
+  width: 64px; height: 64px;
+  border: 2px solid var(--rose);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 3px #fffdf7, inset 0 0 0 4px var(--rose);
+  color: var(--rose);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 60px;
+  text-align: center;
+  transform: rotate(-12deg);
+}
+.offer.is-active .offer__stamp { display: block; }
+
+@media (min-width: 760px) {
+  .offers__inner { grid-template-columns: 1fr 1fr; gap: 24px; padding-top: 40px; }
+}
+
+.item__old {
+  font-weight: 500;
+  font-size: .9em;
+  color: var(--ink-soft);
+  text-decoration-thickness: 1.5px;
+}
+
 /* ---------- Meniuri ---------- */
 
 .menus {
@@ -724,6 +801,22 @@ a { color: inherit; }
   cursor: pointer;
 }
 .link-button:hover { color: var(--rose); }
+
+.cart__offers { display: grid; gap: 8px; padding-top: 14px; }
+.cart__offers:empty { display: none; }
+.cart-offer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-s);
+  background: var(--rose-soft);
+  color: #6e1a3a;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+.cart-offer--hint { background: #fffdf7; box-shadow: inset 0 0 0 1px rgba(142, 68, 33, .35); color: var(--ink-soft); }
+.cart-offer__sum { font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
 
 .cart__total {
   display: flex;
