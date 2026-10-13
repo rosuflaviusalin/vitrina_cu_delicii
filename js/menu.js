@@ -39,8 +39,8 @@ window.MENUS = [
           { id: "p-covrig-seminte", name: "Covrig cu semințe", desc: "", unit: "buc.", price: 3, family: "covrigi" },
           { id: "p-covrig-sare", name: "Covrig cu sare", desc: "", unit: "buc.", price: 3, family: "covrigi" },
           { id: "p-covrig-cascaval", name: "Covrig cu cașcaval", desc: "", unit: "buc.", price: 4, family: "covrigi" },
-          { id: "p-covridog", name: "Covridog", desc: "Crenvurști în cocă.", unit: "buc.", price: 6, family: "covridog și covriking" },
-          { id: "p-covriking", name: "Covriking", desc: "Șuncă și cașcaval în cocă.", unit: "buc.", price: 8, family: "covridog și covriking" },
+          { id: "p-covridog", name: "Covridog", desc: "Crenvurști în corn.", unit: "buc.", price: 6, family: "covridog și covriking" },
+          { id: "p-covriking", name: "Covriking", desc: "Șuncă și cașcaval în corn.", unit: "buc.", price: 8, family: "covridog și covriking" },
         ],
       },
       {
