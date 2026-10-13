@@ -51,7 +51,7 @@ window.MENUS = [
           { id: "p-sandvis-sunca", name: "Sandviș cu șuncă", desc: "Ciabatta maxi, 3 felii de șuncă, brânză cheddar, salată verde, roșii, castraveți.", unit: "buc.", price: 12, family: "sandvișuri" },
           { id: "p-sandvis-salam", name: "Sandviș cu salam", desc: "Ciabatta maxi, 4 felii de salam, brânză cheddar, salată verde, roșii, castraveți.", unit: "buc.", price: 12, family: "sandvișuri" },
           { id: "p-sandvis-muschi", name: "Sandviș cu mușchi file", desc: "Ciabatta maxi, 3 felii de mușchi file, brânză cheddar, salată verde, roșii, castraveți.", unit: "buc.", price: 12, family: "sandvișuri" },
-          { id: "p-pizza-felie", name: "Felie de pizza", desc: "Blat, șuncă, salam, ciuperci, măsline, mozzarella.", unit: "felie", price: 10, family: "pizza" },
+          { id: "p-pizza-felie", name: "Felie de pizza", desc: "Blat, sos de roșii, șuncă, salam, ciuperci, măsline, mozzarella.", unit: "felie", price: 10, family: "pizza" },
           { id: "p-pizza-caprese", name: "Pizza caprese", desc: "Blat, mozzarella, roșii.", unit: "buc.", price: 6, family: "pizza" },
         ],
       },
