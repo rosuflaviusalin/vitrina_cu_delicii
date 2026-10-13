@@ -22,7 +22,7 @@ Prenume: Andrei
 
 An `Observații: …` line is appended only when the customer fills in the optional notes field.
 
-All user-facing copy is Romanian, with correct diacritics (ă, â, î, ș, ț — comma-below, not cedilla) and formal address ("dumneavoastră", "Alegeți"). Motto: "Gust de neuitat, în inima Oraviței". Some products are frozen, so copy must not claim that everything is fresh, homemade or made each morning. Menu products and opening hours are placeholders and still need to be replaced with real data.
+All user-facing copy is Romanian, with correct diacritics (ă, â, î, ș, ț — comma-below, not cedilla) and formal address ("dumneavoastră", "Alegeți"). Motto: "Gust de neuitat, în inima Oraviței". Some products are frozen, so copy must not claim that everything is fresh, homemade or made each morning. Menu products come from the shop's printed menu. Opening hours are still placeholders and need to be replaced with real data.
 
 ## Workflow rules (from the owner)
 
@@ -46,7 +46,7 @@ Deploy by uploading the folder as-is to any static host (Netlify, GitHub Pages, 
 
 ## Architecture
 
-- `js/menu.js`: the only file to edit for content. It sets two globals: `window.SHOP` (name, motto, WhatsApp number in international format without `+`, address, Maps query, hours) and `window.MENUS` (menus → groups → items). Each item has a unique `id`, which is the cart key, plus `name`, `desc`, `unit`, `price` (lei, integer) and an optional `tag`. Exception: the address, phone and hours are also written statically in `index.html` (visible markup plus the JSON-LD `Bakery` block in `<head>`), so crawlers and visitors without JavaScript can see them. app.js overwrites the visible copy from `SHOP`, so update both places when this data changes.
+- `js/menu.js`: the only file to edit for content. It sets two globals: `window.SHOP` (name, motto, WhatsApp number in international format without `+`, address, Maps query, hours) and `window.MENUS` (menus → groups → items). Each item has a unique `id`, which is the cart key, plus `name`, `desc`, `unit`, `price` (lei; whole or half lei such as `6.5`, shown with a decimal comma) and an optional `tag`. Exception: the address, phone and hours are also written statically in `index.html` (visible markup plus the JSON-LD `Bakery` block in `<head>`), so crawlers and visitors without JavaScript can see them. app.js overwrites the visible copy from `SHOP`, so update both places when this data changes.
 - `js/app.js`: an IIFE that renders everything from those globals. Most of `index.html` is empty containers marked with `data-*` hooks that app.js fills, including `data-menus`, the address, hours and the map iframe `src`. Key pieces:
   - The cart is a `Map<id, qty>` persisted to `localStorage` under the key `vitrina-cos-v1`. On load, ids missing from the menu are dropped, so renaming an item's `id` silently empties that line from saved carts.
   - `setQty()` is the single mutation path. It saves the cart, swaps that item's menu control (an "Adaugă" button or a −/+ stepper) and updates the header badge and bottom cart bar. If the cart dialog is open, it re-renders the dialog too.

@@ -101,7 +101,7 @@
       item.desc ? el("p", { class: "item__desc", text: item.desc }) : null,
       el("p", { class: "item__unit", text: item.unit }),
       el("div", { class: "item__side" },
-        el("p", { class: "item__price" }, String(item.price), el("small", { text: " lei" })),
+        el("p", { class: "item__price" }, item.price.toLocaleString("ro-RO"), el("small", { text: " lei" })),
         el("div", { class: "item__control", "data-control": item.id })
       )
     );
