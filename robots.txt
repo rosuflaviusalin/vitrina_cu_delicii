@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /qr.html
+Disallow: /docs/
+Disallow: /CLAUDE.md
+Disallow: /vitrina_cu_delicii_photos/
+
+Sitemap: https://vitrinacudelicii.ro/sitemap.xml

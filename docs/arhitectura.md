@@ -67,6 +67,9 @@ vitrina_cu_delicii_app/
 │   └── styles.css          ASPECTUL: culori, fonturi, layout pentru telefon și desktop
 ├── assets/img/             Imagini optimizate pentru web (.webp + .jpg), logo, favicon, og-image
 ├── vitrina_cu_delicii_photos/  Fotografiile originale (sursa pentru imaginile din assets)
+├── favicon.ico, apple-touch-icon*.png
+│                           Iconițe la rădăcină: browserele și aplicațiile le cer automat aici, chiar dacă pagina indică alte fișiere
+├── robots.txt, sitemap.xml Instrucțiuni pentru motoarele de căutare: ce să indexeze și ce nu
 ├── docs/                   Documentația (acest fișier)
 ├── CLAUDE.md               Instrucțiuni pentru asistentul AI care lucrează pe proiect
 └── README.md
