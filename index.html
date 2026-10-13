@@ -164,8 +164,9 @@
         </div>
 
         <div class="field">
-          <label for="pickup">Când ridicați comanda?</label>
-          <input id="pickup" name="pickup" autocomplete="off" required maxlength="60" placeholder="Ex.: pauza de la 10:50" aria-describedby="pickup-error">
+          <label for="pickup">Când doriți comanda?</label>
+          <p class="field__hint" id="pickup-hint">Sunteți elev? Scrieți pauza și vă aducem comanda la liceu. În rest, scrieți ora la care treceți sau „acum”, dacă sunteți deja la noi.</p>
+          <input id="pickup" name="pickup" autocomplete="off" required maxlength="60" placeholder="Ex.: pauza de la 10:50, ora 13 sau acum" aria-describedby="pickup-hint pickup-error">
           <p class="field__error" id="pickup-error" data-error-for="pickup"></p>
         </div>
 

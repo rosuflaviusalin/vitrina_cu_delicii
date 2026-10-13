@@ -306,7 +306,7 @@
   }
 
   const REQUIRED = [
-    ["pickup", "Scrieți când ridicați comanda, de exemplu „pauza de la 10:50”."],
+    ["pickup", "Scrieți când doriți comanda, de exemplu „pauza de la 10:50”, „ora 13” sau „acum”."],
     ["lastname", "Scrieți numele de familie."],
     ["firstname", "Scrieți prenumele."],
   ];
