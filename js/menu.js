@@ -16,7 +16,7 @@ window.SHOP = {
   // Ofertele: puneți `false` ca să opriți una.
   offers: {
     fridayHalfPrice: true, // vinerea, de la ora 11:00 (ora României), jumătate de preț
-    fivePlusOne: true,     // la 5 produse din aceeași familie, cel mai ieftin dintre 6 e gratuit
+    fivePlusOne: false,    // la 5 produse din aceeași familie, cel mai ieftin dintre 6 e gratuit
   },
   hours: [
     ["Luni – Vineri", "07:00 – 14:30"],

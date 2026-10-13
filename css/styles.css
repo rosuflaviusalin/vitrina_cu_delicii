@@ -449,7 +449,7 @@ a { color: inherit; }
 
 @media (min-width: 760px) {
   .offers__inner { padding-block: 44px 48px; }
-  .offers__list { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .offers__list { grid-auto-flow: column; grid-auto-columns: 1fr; gap: 20px; }
 }
 
 .item__old {

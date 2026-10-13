@@ -24,7 +24,7 @@ An `Observații: …` line is appended only when the customer fills in the optio
 
 Two offers, set by the owner:
 - **Vinerea dulce:** on Fridays from 11:00 Romanian time (`Europe/Bucharest`, not the phone's time zone), everything except drinks and items marked `offers: false` (the 11,99 lei sandwich + drink combo) is half price. The time the order is sent decides. Each unit price is halved and rounded to 0.50 lei (5,5 → 3).
-- **5+1:** for every 6 products of the same `family` (6 covrigi, 6 burgeri…), the cheapest is free. Families are narrow on purpose, so 5 covrigi never earn a cake. Drinks are excluded.
+- **5+1 (switched off by the owner, `fivePlusOne: false`; the code, the `family` fields and the hidden card in index.html stay so it can be turned back on):** for every 6 products of the same `family` (6 covrigi, 6 burgeri…), the cheapest is free. Families are narrow on purpose, so 5 covrigi never earn a cake. Drinks are excluded.
 - The offers never stack: on Friday from 11:00 only the half price applies.
 
 All user-facing copy is Romanian, with correct diacritics (ă, â, î, ș, ț — comma-below, not cedilla) and formal address ("dumneavoastră", "Alegeți"). Motto: "Gust de neuitat, în inima Oraviței". Some products are frozen, so copy must not claim that everything is fresh, homemade or made each morning. Menu products come from the shop's printed menu. Opening hours: Monday–Friday 07:00–14:30, closed on weekends. Students order by 10:00 and get delivery to the high school during the long break ("pauza mare"); the offers section and the pickup hint say so.
