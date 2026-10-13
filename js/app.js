@@ -323,7 +323,7 @@
     $("[data-cart-total]").textContent = lei(priced.total);
     $("[data-cart-offers]").replaceChildren(
       ...(halfPrice && priced.lines.some((l) => l.p.inOffers)
-        ? [el("p", { class: "cart-offer" }, el("span", {}, el("strong", { text: "Vinerea dulce: " }), "jumătate de preț la tot, în afară de băuturi și de meniul mini sandviș + suc."))]
+        ? [el("p", { class: "cart-offer" }, el("span", {}, el("strong", { text: "Vinerea dulce: " }), "jumătate de preț la patiserie."))]
         : []),
       ...priced.free.map((f) =>
         el("p", { class: "cart-offer cart-offer--free" },
@@ -406,7 +406,7 @@
   //   Prenume: Andrei
   // Cu oferte, înainte de total apar și rânduri ca:
   //   1× Gogoașă Oreo gratuit, oferta 5+1 – −5 lei
-  //   Reducere de vineri inclusă: jumătate de preț, fără băuturi și fără meniul mini sandviș + suc
+  //   Reducere de vineri inclusă: jumătate de preț la patiserie
   function buildMessage(data) {
     halfPrice = isHalfPrice(); // ora trimiterii decide reducerea de vineri
     const priced = pricing();
@@ -414,7 +414,7 @@
     priced.lines.forEach(({ p, qty, sum }) => lines.push(`${qty}× ${p.name} – ${lei(sum)}`));
     priced.free.forEach((f) => lines.push(`${f.qty}× ${f.p.name} gratuit, oferta 5+1 – −${lei(f.p.price * f.qty)}`));
     if (halfPrice && priced.lines.some((l) => l.p.inOffers)) {
-      lines.push("Reducere de vineri inclusă: jumătate de preț, fără băuturi și fără meniul mini sandviș + suc");
+      lines.push("Reducere de vineri inclusă: jumătate de preț la patiserie");
     }
     lines.push(`Total: ${lei(priced.total)}`);
     lines.push(`Ridicare: ${data.pickup}`);

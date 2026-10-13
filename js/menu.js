@@ -3,7 +3,7 @@
 // (număr întreg sau cu jumătate de leu, de ex. 6.5).
 // Puneți `tag: "nou"` sau `tag: "specialitatea casei"` pentru o mică etichetă lângă nume.
 // `family` grupează produsele de același fel pentru oferta 5+1 (la 5 covrigi, al 6-lea covrig e gratuit).
-// Produsele fără `family` și meniurile cu `offers: false` (băuturile) nu intră în nicio ofertă.
+// Produsele fără `family` și meniurile cu `offers: false` (fast-food și băuturi) nu intră în nicio ofertă.
 // Un singur produs se scoate din oferta de vineri cu `offers: false` (de exemplu meniul sandviș + suc).
 
 window.SHOP = {
@@ -39,26 +39,26 @@ window.MENUS = [
           { id: "p-covrig-seminte", name: "Covrig cu semințe", desc: "", unit: "buc.", price: 3, family: "covrigi" },
           { id: "p-covrig-sare", name: "Covrig cu sare", desc: "", unit: "buc.", price: 3, family: "covrigi" },
           { id: "p-covrig-cascaval", name: "Covrig cu cașcaval", desc: "", unit: "buc.", price: 4, family: "covrigi" },
-          { id: "p-covridog", name: "Covridog", desc: "", unit: "buc.", price: 6, family: "covridog și covriking" },
-          { id: "p-covriking", name: "Covriking", desc: "", unit: "buc.", price: 8, family: "covridog și covriking" },
+          { id: "p-covridog", name: "Covridog", desc: "Crenvurști în cocă.", unit: "buc.", price: 6, family: "covridog și covriking" },
+          { id: "p-covriking", name: "Covriking", desc: "Șuncă și cașcaval în cocă.", unit: "buc.", price: 8, family: "covridog și covriking" },
         ],
       },
       {
         title: "Sandvișuri și pizza",
         items: [
-          { id: "p-sandvis-mic-salam", name: "Mini sandviș cu salam", desc: "", unit: "buc.", price: 8, family: "sandvișuri", tag: "nou" },
-          { id: "p-sandvis-mic-sunca", name: "Mini sandviș cu șuncă", desc: "", unit: "buc.", price: 8, family: "sandvișuri", tag: "nou" },
-          { id: "p-sandvis-sunca", name: "Sandviș cu șuncă", desc: "", unit: "buc.", price: 12, family: "sandvișuri" },
-          { id: "p-sandvis-salam", name: "Sandviș cu salam", desc: "", unit: "buc.", price: 12, family: "sandvișuri" },
-          { id: "p-sandvis-muschi", name: "Sandviș cu mușchi file", desc: "", unit: "buc.", price: 12, family: "sandvișuri" },
-          { id: "p-pizza-felie", name: "Felie de pizza", desc: "", unit: "felie", price: 10, family: "pizza" },
-          { id: "p-pizza-caprese", name: "Pizza caprese", desc: "Cu roșii și mozzarella.", unit: "buc.", price: 6, family: "pizza" },
+          { id: "p-sandvis-mic-salam", name: "Mini sandviș cu salam", desc: "Ciabatta junior, 2 felii de salam, brânză cheddar, cartofi prăjiți, sosuri.", unit: "buc.", price: 8, family: "sandvișuri", tag: "nou" },
+          { id: "p-sandvis-mic-sunca", name: "Mini sandviș cu șuncă", desc: "Ciabatta junior, 2 felii de șuncă, brânză cheddar, cartofi prăjiți, sosuri.", unit: "buc.", price: 8, family: "sandvișuri", tag: "nou" },
+          { id: "p-sandvis-sunca", name: "Sandviș cu șuncă", desc: "Ciabatta maxi, 3 felii de șuncă, brânză cheddar, salată verde, roșii, castraveți.", unit: "buc.", price: 12, family: "sandvișuri" },
+          { id: "p-sandvis-salam", name: "Sandviș cu salam", desc: "Ciabatta maxi, 4 felii de salam, brânză cheddar, salată verde, roșii, castraveți.", unit: "buc.", price: 12, family: "sandvișuri" },
+          { id: "p-sandvis-muschi", name: "Sandviș cu mușchi file", desc: "Ciabatta maxi, 3 felii de mușchi file, brânză cheddar, salată verde, roșii, castraveți.", unit: "buc.", price: 12, family: "sandvișuri" },
+          { id: "p-pizza-felie", name: "Felie de pizza", desc: "Blat, șuncă, salam, ciuperci, măsline, mozzarella.", unit: "felie", price: 10, family: "pizza" },
+          { id: "p-pizza-caprese", name: "Pizza caprese", desc: "Blat, mozzarella, roșii.", unit: "buc.", price: 6, family: "pizza" },
         ],
       },
       {
         title: "Foietaje",
         items: [
-          { id: "p-strudel-sunca", name: "Ștrudel rustic cu șuncă", desc: "", unit: "buc.", price: 8, family: "foietaje" },
+          { id: "p-strudel-sunca", name: "Ștrudel rustic cu șuncă", desc: "Șuncă, brânză, ceapă.", unit: "buc.", price: 8, family: "foietaje" },
           { id: "p-merdenea-branza", name: "Merdenea cu brânză", desc: "", unit: "buc.", price: 5, family: "foietaje" },
           { id: "p-cos-zmeura-quark", name: "Coș cu zmeură și brânză quark", desc: "", unit: "130 g", price: 7, family: "foietaje", tag: "nou" },
           { id: "p-mini-cascaval", name: "Mini cu cașcaval", desc: "Se vând la cântar. Fiecare bucată din coș înseamnă 100 g.", unit: "100 g", price: 5.5, family: "produse la cântar" },
@@ -96,16 +96,17 @@ window.MENUS = [
   {
     id: "fastfood",
     title: "Fast-food",
+    offers: false, // fast-food-ul nu intră în oferta de vineri
     intro: "Burgeri și meniuri crispy, pentru o masă rapidă.",
     groups: [
       {
         title: "Burgeri și sandvișuri",
         items: [
-          { id: "f-plescavita-porc", name: "Pleșcaviță de porc", desc: "Chiflă, chiftea de porc, salată, cartofi, sosuri.", unit: "400 g", price: 22, family: "burgeri" },
-          { id: "f-burger-pui", name: "Burger de pui", desc: "Chiflă, chiftea de pui, cheddar, salată, cartofi, sosuri.", unit: "300 g", price: 20, family: "burgeri" },
-          { id: "f-snitel-pui", name: "Șnițel de pui", desc: "Chiflă, șnițel de pui, cartofi, salată, sosuri.", unit: "300 g", price: 20, family: "burgeri" },
-          { id: "f-burger-crispy", name: "Burger crispy de pui", desc: "Chiflă, 2 bucăți crispy, cheddar, bacon, salată, ceapă caramelizată, sos de burger.", unit: "300 g", price: 22, family: "burgeri" },
-          { id: "f-burger-vita", name: "Burger de vită", desc: "Chiflă, chiftea de vită, salată, bacon, ceapă caramelizată, cartofi, sos.", unit: "300 g", price: 30, family: "burgeri" },
+          { id: "f-plescavita-porc", name: "Pleșcaviță de porc", desc: "Chiflă, chiftea de porc, salată verde, salată de varză, ceapă caramelizată, cartofi prăjiți, sosuri.", unit: "400 g", price: 22, family: "burgeri" },
+          { id: "f-burger-pui", name: "Burger de pui", desc: "Chiflă, chiftea de pui, brânză cheddar, salată verde, salată de varză, cartofi prăjiți, sosuri.", unit: "300 g", price: 20, family: "burgeri" },
+          { id: "f-snitel-pui", name: "Șnițel de pui în chiflă", desc: "Chiflă, șnițel de pui, salată verde, salată de varză, cartofi prăjiți, sosuri.", unit: "300 g", price: 20, family: "burgeri" },
+          { id: "f-burger-crispy", name: "Burger crispy de pui", desc: "Chiflă, 2 bucăți crispy, brânză cheddar, salată verde, salată de varză, cartofi prăjiți, sosuri.", unit: "300 g", price: 22, family: "burgeri" },
+          { id: "f-burger-vita", name: "Burger de vită", desc: "Chiflă, chiftea de vită, brânză cheddar, bacon, castraveți murați, ceapă caramelizată, cartofi prăjiți, sosuri.", unit: "300 g", price: 30, family: "burgeri" },
           { id: "f-cartofi", name: "Cartofi prăjiți cu sos", desc: "", unit: "porție", price: 6, family: "cartofi prăjiți" },
         ],
       },
