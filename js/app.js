@@ -503,7 +503,7 @@
       notes: form.elements.notes.value.trim(),
     };
     const url = `https://wa.me/${SHOP.whatsapp}?text=${encodeURIComponent(buildMessage(data))}`;
-    signalOrder();
+    const signalSent = signalOrder();
 
     // Comanda a plecat spre WhatsApp: pagina revine la starea inițială înainte de navigare,
     // ca la întoarcere (inclusiv din cache-ul „înapoi” al browserului) coșul să fie gol.
@@ -511,8 +511,11 @@
     toast("Comanda a fost trimisă în WhatsApp");
 
     if (isTouch) {
-      window.location.href = url;
+      // Safari anulează cererile în curs când pagina pleacă spre WhatsApp, așa că așteptăm semnalul
+      // (cel mult 800 ms). Coșul e deja gol, deci o a doua apăsare între timp nu mai trimite nimic.
+      signalSent.then(() => { window.location.href = url; });
     } else {
+      // Pe desktop pagina rămâne deschisă, iar fereastra nouă trebuie deschisă imediat, din click.
       const win = window.open(url, "_blank");
       if (win) win.opener = null;
       else window.location.href = url; // fereastra nouă a fost blocată
@@ -521,15 +524,19 @@
 
   // Semnal anonim pentru statistici: o cerere către /comanda-trimisa.txt cu totalul și numărul de produse,
   // fără nume sau alte date despre client. Se vede în statisticile găzduirii; comanda reală rămâne mesajul WhatsApp.
+  // Întoarce o promisiune rezolvată când semnalul a ajuns sau după cel mult 800 ms.
   function signalOrder() {
     const total = Math.round(pricing().total * 100) / 100;
     const signal = `/comanda-trimisa.txt?total=${total}&produse=${cartCount()}`;
+    let sent;
     try {
-      // keepalive: cererea pleacă și dacă pagina navighează imediat spre WhatsApp.
-      fetch(signal, { keepalive: true, cache: "no-store" }).catch(() => {});
+      sent = fetch(signal, { keepalive: true, cache: "no-store" }).catch(() => {});
     } catch (_) {
-      new Image().src = signal;
+      const img = new Image();
+      sent = new Promise((done) => { img.onload = img.onerror = done; });
+      img.src = signal;
     }
+    return Promise.race([sent, new Promise((done) => setTimeout(done, 800))]);
   }
 
   // Coș gol, formular gol, coșul închis, pagina sus.
