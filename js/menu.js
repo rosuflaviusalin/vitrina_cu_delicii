@@ -120,11 +120,11 @@ window.MENUS = [
       {
         title: "Burgeri și sandvișuri",
         items: [
-          { id: "f-plescavita-porc", name: "Pleșcaviță de porc", desc: "Chiflă, chiftea de porc, salată verde, salată de varză, ceapă caramelizată, cartofi prăjiți, sosuri.", unit: "400 g", price: 22, family: "burgeri", allergens: ["gluten", "ouă", "soia", "lapte", "muștar"], frozen: true },
-          { id: "f-burger-pui", name: "Burger de pui", desc: "Chiflă, chiftea de pui, brânză cheddar, salată verde, salată de varză, cartofi prăjiți, sosuri.", unit: "300 g", price: 20, family: "burgeri", allergens: ["gluten", "ouă", "lapte", "muștar"], frozen: true },
-          { id: "f-snitel-pui", name: "Șnițel de pui în chiflă", desc: "Chiflă, șnițel de pui, salată verde, salată de varză, cartofi prăjiți, sosuri.", unit: "300 g", price: 20, family: "burgeri", allergens: ["gluten", "ouă", "lapte", "muștar"], frozen: true },
-          { id: "f-burger-crispy", name: "Burger crispy de pui", desc: "Chiflă, 2 bucăți crispy, brânză cheddar, salată verde, salată de varză, cartofi prăjiți, sosuri.", unit: "300 g", price: 22, family: "burgeri", allergens: ["gluten", "ouă", "lapte", "muștar"], frozen: true },
-          { id: "f-burger-vita", name: "Burger de vită", desc: "Chiflă, chiftea de vită, brânză cheddar, bacon, castraveți murați, ceapă caramelizată, cartofi prăjiți, sosuri.", unit: "300 g", price: 30, family: "burgeri", allergens: ["gluten", "ouă", "lapte", "muștar"], frozen: true },
+          { id: "f-plescavita-porc", name: "Pleșcaviță de porc", desc: "Chiflă, chiftea de porc, salată verde, salată de varză, ceapă caramelizată, cartofi prăjiți, sosuri.", unit: "400 g", price: 22, family: "burgeri", allergens: ["gluten", "ouă", "soia", "lapte", "muștar"], frozen: "Chiflă și carne din produs congelat." },
+          { id: "f-burger-pui", name: "Burger de pui", desc: "Chiflă, chiftea de pui, brânză cheddar, salată verde, salată de varză, cartofi prăjiți, sosuri.", unit: "300 g", price: 20, family: "burgeri", allergens: ["gluten", "ouă", "lapte", "muștar"], frozen: "Chiflă și carne din produs congelat." },
+          { id: "f-snitel-pui", name: "Șnițel de pui în chiflă", desc: "Chiflă, șnițel de pui, salată verde, salată de varză, cartofi prăjiți, sosuri.", unit: "300 g", price: 20, family: "burgeri", allergens: ["gluten", "ouă", "lapte", "muștar"], frozen: "Chiflă și carne din produs congelat." },
+          { id: "f-burger-crispy", name: "Burger crispy de pui", desc: "Chiflă, 2 bucăți crispy, brânză cheddar, salată verde, salată de varză, cartofi prăjiți, sosuri.", unit: "300 g", price: 22, family: "burgeri", allergens: ["gluten", "ouă", "lapte", "muștar"], frozen: "Chiflă și carne din produs congelat." },
+          { id: "f-burger-vita", name: "Burger de vită", desc: "Chiflă, chiftea de vită, brânză cheddar, bacon, castraveți murați, ceapă caramelizată, cartofi prăjiți, sosuri.", unit: "300 g", price: 30, family: "burgeri", allergens: ["gluten", "ouă", "lapte", "muștar"], frozen: "Chiflă și carne din produs congelat." },
           { id: "f-cartofi", name: "Cartofi prăjiți cu sos", desc: "", unit: "porție", price: 6, family: "cartofi prăjiți", allergens: ["ouă", "muștar"], frozen: true },
         ],
       },
