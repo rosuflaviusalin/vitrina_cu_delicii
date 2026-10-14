@@ -9,6 +9,20 @@
 // lapte, fructe cu coajă, țelină, muștar, susan, sulfiți, lupin, moluște). Apare sub produs.
 // `frozen: true` afișează „Produs din produs congelat.” sub produs.
 
+// Valori nutriționale ORIENTATIVE, la 100 g: medii pentru tipul de produs, nu analiza produselor noastre.
+// Ordinea: energie (kcal), grăsimi, din care saturate, glucide, din care zaharuri, proteine, sare (g).
+// La băuturile ambalate, `nutrition: "pe ambalaj"`: valorile exacte sunt pe etichetă.
+const NUTRITIE = {
+  COVRIG_SIMPLU: { kcal: 340, fat: 3, saturated: 0.6, carbs: 69, sugars: 4, protein: 9, salt: 2.0 },
+  COVRIG_SEMINTE: { kcal: 360, fat: 6, saturated: 0.8, carbs: 64, sugars: 4, protein: 11, salt: 2.0 },
+  COVRIG_CASCAVAL: { kcal: 350, fat: 8, saturated: 4, carbs: 56, sugars: 4, protein: 13, salt: 2.0 },
+  CROISSANT_UNT: { kcal: 406, fat: 21, saturated: 11.7, carbs: 46, sugars: 11, protein: 8, salt: 0.9 },
+  CROISSANT_CIOCOLATA: { kcal: 414, fat: 22, saturated: 13, carbs: 46, sugars: 14, protein: 7.5, salt: 0.8 },
+  CROISSANT_UMPLUT: { kcal: 370, fat: 18, saturated: 10, carbs: 46, sugars: 18, protein: 6.5, salt: 0.7 },
+  GOGOASA_FRUCTE: { kcal: 340, fat: 17, saturated: 5, carbs: 40, sugars: 20, protein: 6, salt: 0.7 },
+  GOGOASA_CREMA: { kcal: 400, fat: 22, saturated: 9, carbs: 44, sugars: 22, protein: 6, salt: 0.7 },
+};
+
 window.SHOP = {
   name: "Vitrina cu Delicii",
   motto: "Gust de neuitat, în inima Oraviței",
@@ -36,12 +50,12 @@ window.MENUS = [
       {
         title: "Croissante și covrigi",
         items: [
-          { id: "p-croissant-unt", name: "Croissant cu unt", desc: "", unit: "buc.", price: 5, family: "croissante", allergens: ["gluten", "ouă", "lapte"], frozen: true },
-          { id: "p-croissant-ciocolata", name: "Croissant cu ciocolată", desc: "", unit: "buc.", price: 6, family: "croissante", allergens: ["gluten", "ouă", "soia", "lapte"], frozen: true },
-          { id: "p-croissant-zmeura", name: "Croissant cu zmeură", desc: "", unit: "buc.", price: 6, family: "croissante", allergens: ["gluten", "ouă", "lapte"], frozen: true },
-          { id: "p-covrig-seminte", name: "Covrig cu semințe", desc: "", unit: "buc.", price: 3, family: "covrigi", allergens: ["gluten", "susan"], frozen: true },
-          { id: "p-covrig-sare", name: "Covrig cu sare", desc: "", unit: "buc.", price: 3, family: "covrigi", allergens: ["gluten"] },
-          { id: "p-covrig-cascaval", name: "Covrig cu cașcaval", desc: "", unit: "buc.", price: 4, family: "covrigi", allergens: ["gluten", "lapte"], frozen: true },
+          { id: "p-croissant-unt", name: "Croissant cu unt", desc: "", unit: "buc.", price: 5, family: "croissante", allergens: ["gluten", "ouă", "lapte"], frozen: true, nutrition: NUTRITIE.CROISSANT_UNT },
+          { id: "p-croissant-ciocolata", name: "Croissant cu ciocolată", desc: "", unit: "buc.", price: 6, family: "croissante", allergens: ["gluten", "ouă", "soia", "lapte"], frozen: true, nutrition: NUTRITIE.CROISSANT_CIOCOLATA },
+          { id: "p-croissant-zmeura", name: "Croissant cu zmeură", desc: "", unit: "buc.", price: 6, family: "croissante", allergens: ["gluten", "ouă", "lapte"], frozen: true, nutrition: NUTRITIE.CROISSANT_UMPLUT },
+          { id: "p-covrig-seminte", name: "Covrig cu semințe", desc: "", unit: "buc.", price: 3, family: "covrigi", allergens: ["gluten", "susan"], frozen: true, nutrition: NUTRITIE.COVRIG_SEMINTE },
+          { id: "p-covrig-sare", name: "Covrig cu sare", desc: "", unit: "buc.", price: 3, family: "covrigi", allergens: ["gluten"], nutrition: NUTRITIE.COVRIG_SIMPLU },
+          { id: "p-covrig-cascaval", name: "Covrig cu cașcaval", desc: "", unit: "buc.", price: 4, family: "covrigi", allergens: ["gluten", "lapte"], frozen: true, nutrition: NUTRITIE.COVRIG_CASCAVAL },
           { id: "p-covridog", name: "Covridog", desc: "Crenvurști în corn.", unit: "buc.", price: 6, family: "covridog și covriking", allergens: ["gluten", "soia", "lapte", "muștar"], frozen: true },
           { id: "p-covriking", name: "Covriking", desc: "Șuncă și cașcaval în corn.", unit: "buc.", price: 8, family: "covridog și covriking", allergens: ["gluten", "soia", "lapte"], frozen: true },
         ],
@@ -72,13 +86,13 @@ window.MENUS = [
       {
         title: "Gogoși",
         items: [
-          { id: "p-gogoasa-fistic", name: "Gogoașă cu fistic", desc: "", unit: "buc.", price: 6, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte", "fructe cu coajă"], frozen: true },
-          { id: "p-gogoasa-biscoff", name: "Gogoașă Biscoff", desc: "", unit: "buc.", price: 6, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte"], frozen: true },
-          { id: "p-gogoasa-zmeura", name: "Gogoașă cu zmeură", desc: "", unit: "buc.", price: 6, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte"], frozen: true },
-          { id: "p-gogoasa-ciocolata", name: "Gogoașă cu ciocolată", desc: "", unit: "buc.", price: 5, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte"], frozen: true },
-          { id: "p-gogoasa-capsuni", name: "Gogoașă cu căpșuni", desc: "", unit: "buc.", price: 5, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte"], frozen: true },
-          { id: "p-gogoasa-oreo", name: "Gogoașă Oreo", desc: "", unit: "buc.", price: 5, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte"], frozen: true },
-          { id: "p-gogoasa-nutella", name: "Gogoașă cu Nutella", desc: "", unit: "buc.", price: 5, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte", "fructe cu coajă"], frozen: true },
+          { id: "p-gogoasa-fistic", name: "Gogoașă cu fistic", desc: "", unit: "buc.", price: 6, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte", "fructe cu coajă"], frozen: true, nutrition: NUTRITIE.GOGOASA_CREMA },
+          { id: "p-gogoasa-biscoff", name: "Gogoașă Biscoff", desc: "", unit: "buc.", price: 6, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte"], frozen: true, nutrition: NUTRITIE.GOGOASA_CREMA },
+          { id: "p-gogoasa-zmeura", name: "Gogoașă cu zmeură", desc: "", unit: "buc.", price: 6, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte"], frozen: true, nutrition: NUTRITIE.GOGOASA_FRUCTE },
+          { id: "p-gogoasa-ciocolata", name: "Gogoașă cu ciocolată", desc: "", unit: "buc.", price: 5, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte"], frozen: true, nutrition: NUTRITIE.GOGOASA_CREMA },
+          { id: "p-gogoasa-capsuni", name: "Gogoașă cu căpșuni", desc: "", unit: "buc.", price: 5, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte"], frozen: true, nutrition: NUTRITIE.GOGOASA_FRUCTE },
+          { id: "p-gogoasa-oreo", name: "Gogoașă Oreo", desc: "", unit: "buc.", price: 5, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte"], frozen: true, nutrition: NUTRITIE.GOGOASA_CREMA },
+          { id: "p-gogoasa-nutella", name: "Gogoașă cu Nutella", desc: "", unit: "buc.", price: 5, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte", "fructe cu coajă"], frozen: true, nutrition: NUTRITIE.GOGOASA_CREMA },
         ],
       },
       {
@@ -143,17 +157,17 @@ window.MENUS = [
       {
         title: "Reci",
         items: [
-          { id: "b-apa-minerala", name: "Apă minerală", desc: "", unit: "0,5 l", price: 5 },
-          { id: "b-apa-plata", name: "Apă plată", desc: "", unit: "0,5 l", price: 5 },
-          { id: "b-cola", name: "Coca-Cola", desc: "", unit: "0,5 l", price: 8 },
-          { id: "b-cola-doza", name: "Coca-Cola la doză", desc: "", unit: "0,33 l", price: 6 },
-          { id: "b-fanta", name: "Fanta", desc: "", unit: "0,5 l", price: 8 },
-          { id: "b-fanta-doza", name: "Fanta la doză", desc: "", unit: "0,33 l", price: 6 },
-          { id: "b-pepsi", name: "Pepsi", desc: "", unit: "0,5 l", price: 8 },
-          { id: "b-pepsi-doza", name: "Pepsi la doză", desc: "", unit: "0,33 l", price: 6 },
-          { id: "b-prigat", name: "Prigat", desc: "", unit: "0,5 l", price: 8 },
-          { id: "b-nestea", name: "Nestea", desc: "", unit: "0,5 l", price: 8 },
-          { id: "b-fruti-fresh", name: "Fruti Fresh la doză", desc: "", unit: "0,33 l", price: 5 },
+          { id: "b-apa-minerala", name: "Apă minerală", desc: "", unit: "0,5 l", price: 5, nutrition: "pe ambalaj" },
+          { id: "b-apa-plata", name: "Apă plată", desc: "", unit: "0,5 l", price: 5, nutrition: "pe ambalaj" },
+          { id: "b-cola", name: "Coca-Cola", desc: "", unit: "0,5 l", price: 8, nutrition: "pe ambalaj" },
+          { id: "b-cola-doza", name: "Coca-Cola la doză", desc: "", unit: "0,33 l", price: 6, nutrition: "pe ambalaj" },
+          { id: "b-fanta", name: "Fanta", desc: "", unit: "0,5 l", price: 8, nutrition: "pe ambalaj" },
+          { id: "b-fanta-doza", name: "Fanta la doză", desc: "", unit: "0,33 l", price: 6, nutrition: "pe ambalaj" },
+          { id: "b-pepsi", name: "Pepsi", desc: "", unit: "0,5 l", price: 8, nutrition: "pe ambalaj" },
+          { id: "b-pepsi-doza", name: "Pepsi la doză", desc: "", unit: "0,33 l", price: 6, nutrition: "pe ambalaj" },
+          { id: "b-prigat", name: "Prigat", desc: "", unit: "0,5 l", price: 8, nutrition: "pe ambalaj" },
+          { id: "b-nestea", name: "Nestea", desc: "", unit: "0,5 l", price: 8, nutrition: "pe ambalaj" },
+          { id: "b-fruti-fresh", name: "Fruti Fresh la doză", desc: "", unit: "0,33 l", price: 5, nutrition: "pe ambalaj" },
         ],
       },
     ],

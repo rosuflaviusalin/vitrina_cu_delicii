@@ -170,16 +170,40 @@
         item.tag ? el("span", { class: "item__tag", text: item.tag }) : null
       ),
       item.desc ? el("p", { class: "item__desc", text: item.desc }) : null,
-      item.allergens || item.frozen
+      item.allergens || item.frozen || item.nutrition === "pe ambalaj"
         ? el("p", { class: "item__info" },
             item.allergens && item.allergens.length ? el("span", { text: `Alergeni: ${item.allergens.join(", ")}.` }) : null,
-            item.frozen ? el("span", { text: "Produs din produs congelat." }) : null
+            item.frozen ? el("span", { text: "Produs din produs congelat." }) : null,
+            item.nutrition === "pe ambalaj" ? el("span", { text: "Valori nutriționale: pe ambalaj." }) : null
           )
         : null,
+      item.nutrition && typeof item.nutrition === "object" ? nutritionTable(item.nutrition) : null,
       el("div", { class: "item__side" },
         el("p", { class: "item__price", "data-price": item.id }),
         el("div", { class: "item__control", "data-control": item.id })
       )
+    );
+  }
+
+  // Tabel pliabil cu valori nutriționale orientative, la 100 g.
+  function nutritionTable(n) {
+    const g = (v) => `${Number.isInteger(v) ? v : v.toFixed(1).replace(".", ",")} g`;
+    const rows = [
+      ["Energie", `${Math.round(n.kcal * 4.184)} kJ / ${n.kcal} kcal`],
+      ["Grăsimi", g(n.fat)],
+      ["– din care acizi grași saturați", g(n.saturated)],
+      ["Glucide", g(n.carbs)],
+      ["– din care zaharuri", g(n.sugars)],
+      ["Proteine", g(n.protein)],
+      ["Sare", g(n.salt)],
+    ];
+    return el("details", { class: "item__nutrition" },
+      el("summary", { text: "Valori nutriționale orientative" }),
+      el("table", {},
+        el("caption", { text: "La 100 g" }),
+        el("tbody", {}, rows.map(([k, v]) => el("tr", {}, el("th", { scope: "row", text: k }), el("td", { text: v }))))
+      ),
+      el("p", { text: "Valori medii pentru acest tip de produs, nu rezultatul analizei produselor noastre." })
     );
   }
 

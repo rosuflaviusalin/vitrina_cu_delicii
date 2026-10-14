@@ -566,6 +566,28 @@ a { color: inherit; }
   line-height: 1.35;
 }
 
+.item__nutrition {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+  font-size: .9rem;
+  color: var(--ink-soft);
+}
+.item__nutrition summary {
+  display: inline-block;
+  min-height: 32px;
+  padding: 4px 0;
+  cursor: pointer;
+  color: var(--cherry);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.item__nutrition summary::-webkit-details-marker { display: none; }
+.item__nutrition table { width: 100%; max-width: 360px; border-collapse: collapse; margin: 4px 0 6px; }
+.item__nutrition caption { text-align: left; font-weight: 700; color: var(--ink); padding-bottom: 2px; }
+.item__nutrition th, .item__nutrition td { padding: 3px 0; border-bottom: 1px dotted var(--line); font-weight: 400; text-align: left; }
+.item__nutrition td { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.item__nutrition p { font-size: .8rem; max-width: 360px; }
+
 .item__side {
   grid-column: 2;
   grid-row: 1 / span 3;
