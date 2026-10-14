@@ -170,6 +170,12 @@
         item.tag ? el("span", { class: "item__tag", text: item.tag }) : null
       ),
       item.desc ? el("p", { class: "item__desc", text: item.desc }) : null,
+      item.allergens || item.frozen
+        ? el("p", { class: "item__info" },
+            item.allergens && item.allergens.length ? el("span", { text: `Alergeni: ${item.allergens.join(", ")}.` }) : null,
+            item.frozen ? el("span", { text: "Produs din produs congelat." }) : null
+          )
+        : null,
       el("p", { class: "item__unit", text: item.unit }),
       el("div", { class: "item__side" },
         el("p", { class: "item__price", "data-price": item.id }),

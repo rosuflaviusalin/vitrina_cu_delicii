@@ -376,6 +376,8 @@ Dacă programul sau telefonul se schimbă, trebuie actualizate în `js/menu.js` 
 |---|---|---|
 | Schimb un preț, un nume sau o descriere | `js/menu.js` | Editez produsul. **Nu schimb `id`-ul**, altfel produsul dispare din coșurile salvate |
 | Adaug un produs | `js/menu.js` | Copiez un rând existent și îi dau un `id` nou, unic |
+| Schimb alergenii unui produs | `js/menu.js` | Lista `allergens: ["gluten", "ouă", …]` a produsului |
+| Marchez un produs ca fiind (sau nu) din produs congelat | `js/menu.js` | Adaug sau șterg `frozen: true` |
 | Schimb programul sau telefonul | `js/menu.js` **și** `index.html` | Textul vizibil și blocul JSON-LD din `<head>` |
 | Opresc sau pornesc oferta de vineri | `js/menu.js` | `offers: { fridayHalfPrice: false }` |
 | Scot un meniu întreg din ofertă | `js/menu.js` | `offers: false` la nivelul meniului |
