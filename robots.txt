@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /qr.html
+Disallow: /qr
+Disallow: /404.html
 Disallow: /docs/
 Disallow: /CLAUDE.md
 Disallow: /vitrina_cu_delicii_photos/
