@@ -7,7 +7,8 @@
 // Un singur produs se scoate din oferta de vineri cu `offers: false` (de exemplu meniul sandviș + suc).
 // `allergens`: lista alergenilor, cu numele din cei 14 alergeni UE (gluten, crustacee, ouă, pește, arahide, soia,
 // lapte, fructe cu coajă, țelină, muștar, susan, sulfiți, lupin, moluște). Apare sub produs.
-// `frozen: true` afișează „Produs din produs congelat.” sub produs.
+// `frozen: true` afișează „Produs din produs congelat.” sub produs; un text în loc de `true` (de ex. la sandvișuri,
+// unde doar pâinea e congelată) se afișează exact așa.
 
 // Valori nutriționale ORIENTATIVE, la 100 g: medii pentru tipul de produs, nu analiza produselor noastre.
 // Ordinea: energie (kcal), grăsimi, din care saturate, glucide, din care zaharuri, proteine, sare (g).
@@ -63,11 +64,11 @@ window.MENUS = [
       {
         title: "Sandvișuri și pizza",
         items: [
-          { id: "p-sandvis-mic-salam", name: "Mini sandviș cu salam", desc: "Ciabatta junior, 2 felii de salam, brânză cheddar, cartofi prăjiți, sosuri.", unit: "buc.", price: 8, family: "sandvișuri", tag: "nou", allergens: ["gluten", "ouă", "soia", "lapte", "muștar"], frozen: true },
-          { id: "p-sandvis-mic-sunca", name: "Mini sandviș cu șuncă", desc: "Ciabatta junior, 2 felii de șuncă, brânză cheddar, cartofi prăjiți, sosuri.", unit: "buc.", price: 8, family: "sandvișuri", tag: "nou", allergens: ["gluten", "ouă", "soia", "lapte", "muștar"], frozen: true },
-          { id: "p-sandvis-sunca", name: "Sandviș cu șuncă", desc: "Ciabatta maxi, 3 felii de șuncă, brânză cheddar, salată verde, roșii, castraveți.", unit: "buc.", price: 12, family: "sandvișuri", allergens: ["gluten", "soia", "lapte"], frozen: true },
-          { id: "p-sandvis-salam", name: "Sandviș cu salam", desc: "Ciabatta maxi, 4 felii de salam, brânză cheddar, salată verde, roșii, castraveți.", unit: "buc.", price: 12, family: "sandvișuri", allergens: ["gluten", "soia", "lapte"], frozen: true },
-          { id: "p-sandvis-muschi", name: "Sandviș cu mușchi file", desc: "Ciabatta maxi, 3 felii de mușchi file, brânză cheddar, salată verde, roșii, castraveți.", unit: "buc.", price: 12, family: "sandvișuri", allergens: ["gluten", "soia", "lapte"], frozen: true },
+          { id: "p-sandvis-mic-salam", name: "Mini sandviș cu salam", desc: "Ciabatta junior, 2 felii de salam, brânză cheddar, cartofi prăjiți, sosuri.", unit: "buc.", price: 8, family: "sandvișuri", tag: "nou", allergens: ["gluten", "ouă", "soia", "lapte", "muștar"], frozen: "Pâine din produs congelat." },
+          { id: "p-sandvis-mic-sunca", name: "Mini sandviș cu șuncă", desc: "Ciabatta junior, 2 felii de șuncă, brânză cheddar, cartofi prăjiți, sosuri.", unit: "buc.", price: 8, family: "sandvișuri", tag: "nou", allergens: ["gluten", "ouă", "soia", "lapte", "muștar"], frozen: "Pâine din produs congelat." },
+          { id: "p-sandvis-sunca", name: "Sandviș cu șuncă", desc: "Ciabatta maxi, 3 felii de șuncă, brânză cheddar, salată verde, roșii, castraveți.", unit: "buc.", price: 12, family: "sandvișuri", allergens: ["gluten", "soia", "lapte"], frozen: "Pâine din produs congelat." },
+          { id: "p-sandvis-salam", name: "Sandviș cu salam", desc: "Ciabatta maxi, 4 felii de salam, brânză cheddar, salată verde, roșii, castraveți.", unit: "buc.", price: 12, family: "sandvișuri", allergens: ["gluten", "soia", "lapte"], frozen: "Pâine din produs congelat." },
+          { id: "p-sandvis-muschi", name: "Sandviș cu mușchi file", desc: "Ciabatta maxi, 3 felii de mușchi file, brânză cheddar, salată verde, roșii, castraveți.", unit: "buc.", price: 12, family: "sandvișuri", allergens: ["gluten", "soia", "lapte"], frozen: "Pâine din produs congelat." },
           { id: "p-pizza-felie", name: "Felie de pizza", desc: "Blat, sos de roșii, șuncă, salam, ciuperci, măsline, mozzarella.", unit: "felie", price: 10, family: "pizza", allergens: ["gluten", "soia", "lapte"] },
           { id: "p-pizza-caprese", name: "Pizza caprese", desc: "Blat, mozzarella, roșii.", unit: "buc.", price: 6, family: "pizza", allergens: ["gluten", "lapte"], frozen: true },
         ],
@@ -130,7 +131,7 @@ window.MENUS = [
       {
         title: "Meniuri",
         items: [
-          { id: "p-meniu-sandvis-suc", name: "Meniu mini sandviș + suc", desc: "Un mini sandviș cu salam sau șuncă și un suc. Scrieți la observații ce sandviș și ce suc doriți.", unit: "meniu", price: 11.99, tag: "nou", offers: false, allergens: ["gluten", "ouă", "soia", "lapte", "muștar"], frozen: true },
+          { id: "p-meniu-sandvis-suc", name: "Meniu mini sandviș + suc", desc: "Un mini sandviș cu salam sau șuncă și un suc. Scrieți la observații ce sandviș și ce suc doriți.", unit: "meniu", price: 11.99, tag: "nou", offers: false, allergens: ["gluten", "ouă", "soia", "lapte", "muștar"], frozen: "Pâine din produs congelat." },
           { id: "f-meniu-mini-crispy", name: "Meniu mini crispy de pui", desc: "Crispy de pui 2 bucăți, cartofi pai 100 g, salată de varză, sos de usturoi.", unit: "meniu", price: 16, family: "meniuri crispy", allergens: ["gluten", "ouă", "lapte", "muștar"], frozen: true },
           { id: "f-meniu-mega-crispy", name: "Meniu mega crispy de pui", desc: "Crispy de pui 4 bucăți, cartofi pai 200 g, salată de varză, sos de usturoi.", unit: "meniu", price: 26, family: "meniuri crispy", allergens: ["gluten", "ouă", "lapte", "muștar"], frozen: true },
           { id: "f-meniu-mini-aripioare", name: "Meniu mini aripioare crispy", desc: "Aripioare crispy de pui 4 bucăți, cartofi pai 100 g, salată de varză, sos de usturoi.", unit: "meniu", price: 16, family: "meniuri crispy", allergens: ["gluten", "ouă", "lapte", "muștar"], frozen: true },

@@ -173,7 +173,7 @@
       item.allergens || item.frozen || item.nutrition === "pe ambalaj"
         ? el("p", { class: "item__info" },
             item.allergens && item.allergens.length ? el("span", { text: `Alergeni: ${item.allergens.join(", ")}.` }) : null,
-            item.frozen ? el("span", { text: "Produs din produs congelat." }) : null,
+            item.frozen ? el("span", { text: typeof item.frozen === "string" ? item.frozen : "Produs din produs congelat." }) : null,
             item.nutrition === "pe ambalaj" ? el("span", { text: "Valori nutriționale: pe ambalaj." }) : null
           )
         : null,
