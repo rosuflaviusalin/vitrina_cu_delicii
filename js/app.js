@@ -503,6 +503,7 @@
       notes: form.elements.notes.value.trim(),
     };
     const url = `https://wa.me/${SHOP.whatsapp}?text=${encodeURIComponent(buildMessage(data))}`;
+    signalOrder();
 
     // Comanda a plecat spre WhatsApp: pagina revine la starea inițială înainte de navigare,
     // ca la întoarcere (inclusiv din cache-ul „înapoi” al browserului) coșul să fie gol.
@@ -517,6 +518,19 @@
       else window.location.href = url; // fereastra nouă a fost blocată
     }
   });
+
+  // Semnal anonim pentru statistici: o cerere către /comanda-trimisa.txt cu totalul și numărul de produse,
+  // fără nume sau alte date despre client. Se vede în statisticile găzduirii; comanda reală rămâne mesajul WhatsApp.
+  function signalOrder() {
+    const total = Math.round(pricing().total * 100) / 100;
+    const signal = `/comanda-trimisa.txt?total=${total}&produse=${cartCount()}`;
+    try {
+      // keepalive: cererea pleacă și dacă pagina navighează imediat spre WhatsApp.
+      fetch(signal, { keepalive: true, cache: "no-store" }).catch(() => {});
+    } catch (_) {
+      new Image().src = signal;
+    }
+  }
 
   // Coș gol, formular gol, coșul închis, pagina sus.
   function resetAll() {
