@@ -176,13 +176,14 @@
             item.frozen ? el("span", { text: "Produs din produs congelat." }) : null
           )
         : null,
-      el("p", { class: "item__unit", text: item.unit }),
       el("div", { class: "item__side" },
         el("p", { class: "item__price", "data-price": item.id }),
         el("div", { class: "item__control", "data-control": item.id })
       )
     );
   }
+
+  const UNITS_HIDDEN_IN_MENU = ["buc.", "meniu", "felie"];
 
   function updatePrice(id) {
     const p = PRODUCTS.get(id);
@@ -192,7 +193,9 @@
     node.replaceChildren(
       ...(each !== p.price ? [el("s", { class: "item__old", text: num(p.price) }), " "] : []),
       num(each),
-      el("small", { text: " lei" })
+      el("small", { text: " lei" }),
+      // Gramajul sau volumul lângă preț; „buc.”, „meniu” și „felie” nu spun nimic în plus.
+      p.unit && !UNITS_HIDDEN_IN_MENU.includes(p.unit) ? el("small", { class: "item__unit", text: `/ ${p.unit}` }) : ""
     );
   }
 
