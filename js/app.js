@@ -173,6 +173,7 @@
       item.allergens || item.frozen || item.nutrition === "pe ambalaj"
         ? el("p", { class: "item__info" },
             item.allergens && item.allergens.length ? el("span", { text: `Alergeni: ${item.allergens.join(", ")}.` }) : null,
+            item.traces && item.traces.length ? el("span", { text: `Poate conține urme de: ${item.traces.join(", ")}.` }) : null,
             item.frozen ? el("span", { text: typeof item.frozen === "string" ? item.frozen : "Produs din produs congelat." }) : null,
             item.nutrition === "pe ambalaj" ? el("span", { text: "Valori nutriționale: pe ambalaj." }) : null
           )
@@ -185,25 +186,31 @@
     );
   }
 
-  // Tabel pliabil cu valori nutriționale orientative, la 100 g.
+  // Tabel pliabil cu valorile nutriționale la 100 g: de pe eticheta producătorului (`label: true`)
+  // sau orientative (medii pentru tipul de produs). Rândurile fără valoare nu se afișează.
   function nutritionTable(n) {
-    const g = (v) => `${Number.isInteger(v) ? v : v.toFixed(1).replace(".", ",")} g`;
+    const v = (x) => String(x).replace(".", ",");
+    const g = (x) => (x == null ? null : `${n.label ? v(x) : (Number.isInteger(x) ? x : x.toFixed(1).replace(".", ","))} g`);
+    const kj = n.kj != null ? n.kj : Math.round(n.kcal * 4.184);
     const rows = [
-      ["Energie", `${Math.round(n.kcal * 4.184)} kJ / ${n.kcal} kcal`],
+      ["Energie", `${v(kj)} kJ / ${v(n.kcal)} kcal`],
       ["Grăsimi", g(n.fat)],
       ["– din care acizi grași saturați", g(n.saturated)],
       ["Glucide", g(n.carbs)],
       ["– din care zaharuri", g(n.sugars)],
+      ["Fibre", g(n.fiber)],
       ["Proteine", g(n.protein)],
       ["Sare", g(n.salt)],
-    ];
+    ].filter(([, value]) => value != null);
     return el("details", { class: "item__nutrition" },
-      el("summary", { text: "Valori nutriționale orientative" }),
+      el("summary", { text: n.label ? "Valori nutriționale" : "Valori nutriționale orientative" }),
       el("table", {},
         el("caption", { text: "La 100 g" }),
-        el("tbody", {}, rows.map(([k, v]) => el("tr", {}, el("th", { scope: "row", text: k }), el("td", { text: v }))))
+        el("tbody", {}, rows.map(([k, val]) => el("tr", {}, el("th", { scope: "row", text: k }), el("td", { text: val }))))
       ),
-      el("p", { text: "Valori medii pentru acest tip de produs, nu rezultatul analizei produselor noastre." })
+      el("p", { text: n.label
+        ? "Conform informațiilor producătorului."
+        : "Valori medii pentru acest tip de produs, nu rezultatul analizei produselor noastre." })
     );
   }
 

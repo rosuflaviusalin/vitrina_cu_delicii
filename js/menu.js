@@ -10,16 +10,14 @@
 // `frozen: true` afișează „Produs din produs congelat.” sub produs; un text în loc de `true` (de ex. la sandvișuri,
 // unde doar pâinea e congelată) se afișează exact așa.
 
-// Valori nutriționale ORIENTATIVE, la 100 g: medii pentru tipul de produs, nu analiza produselor noastre.
+// `nutrition` cu `label: true`: valorile de pe eticheta/fișa producătorului, la 100 g (kj, kcal, fat, saturated,
+// carbs, sugars, fiber, protein, salt; câmpurile lipsă nu se afișează).
+// `traces`: alergenii pe care producătorul îi trece la „poate conține urme de”.
+// Profilurile de mai jos sunt valori ORIENTATIVE, la 100 g: medii pentru tipul de produs, nu analiza produselor noastre.
 // Ordinea: energie (kcal), grăsimi, din care saturate, glucide, din care zaharuri, proteine, sare (g).
 // La băuturile ambalate, `nutrition: "pe ambalaj"`: valorile exacte sunt pe etichetă.
 const NUTRITIE = {
   COVRIG_SIMPLU: { kcal: 340, fat: 3, saturated: 0.6, carbs: 69, sugars: 4, protein: 9, salt: 2.0 },
-  COVRIG_SEMINTE: { kcal: 360, fat: 6, saturated: 0.8, carbs: 64, sugars: 4, protein: 11, salt: 2.0 },
-  COVRIG_CASCAVAL: { kcal: 350, fat: 8, saturated: 4, carbs: 56, sugars: 4, protein: 13, salt: 2.0 },
-  CROISSANT_UNT: { kcal: 406, fat: 21, saturated: 11.7, carbs: 46, sugars: 11, protein: 8, salt: 0.9 },
-  CROISSANT_CIOCOLATA: { kcal: 414, fat: 22, saturated: 13, carbs: 46, sugars: 14, protein: 7.5, salt: 0.8 },
-  CROISSANT_UMPLUT: { kcal: 370, fat: 18, saturated: 10, carbs: 46, sugars: 18, protein: 6.5, salt: 0.7 },
   GOGOASA_FRUCTE: { kcal: 340, fat: 17, saturated: 5, carbs: 40, sugars: 20, protein: 6, salt: 0.7 },
   GOGOASA_CREMA: { kcal: 400, fat: 22, saturated: 9, carbs: 44, sugars: 22, protein: 6, salt: 0.7 },
 };
@@ -51,14 +49,14 @@ window.MENUS = [
       {
         title: "Croissante și covrigi",
         items: [
-          { id: "p-croissant-unt", name: "Croissant cu unt", desc: "", unit: "buc.", price: 5, family: "croissante", allergens: ["gluten", "ouă", "lapte"], frozen: true, nutrition: NUTRITIE.CROISSANT_UNT },
-          { id: "p-croissant-ciocolata", name: "Croissant cu ciocolată", desc: "", unit: "buc.", price: 6, family: "croissante", allergens: ["gluten", "ouă", "soia", "lapte"], frozen: true, nutrition: NUTRITIE.CROISSANT_CIOCOLATA },
-          { id: "p-croissant-zmeura", name: "Croissant cu zmeură", desc: "", unit: "buc.", price: 6, family: "croissante", allergens: ["gluten", "ouă", "lapte"], frozen: true, nutrition: NUTRITIE.CROISSANT_UMPLUT },
-          { id: "p-covrig-seminte", name: "Covrig cu semințe", desc: "", unit: "buc.", price: 3, family: "covrigi", allergens: ["gluten", "susan"], frozen: true, nutrition: NUTRITIE.COVRIG_SEMINTE },
+          { id: "p-croissant-unt", name: "Croissant cu unt", desc: "", unit: "100 g", price: 5, family: "croissante", allergens: ["gluten", "ouă", "lapte"], traces: ["soia", "fructe cu coajă", "susan"], frozen: true, nutrition: { label: true, kj: 1499, kcal: 359, fat: 21, saturated: 13, carbs: 34, sugars: 6.4, fiber: 2.1, protein: 7.9, salt: 0.87 } },
+          { id: "p-croissant-ciocolata", name: "Croissant cu ciocolată", desc: "", unit: "120 g", price: 6, family: "croissante", allergens: ["gluten", "ouă", "soia", "lapte"], traces: ["fructe cu coajă", "susan"], frozen: true, nutrition: { label: true, kj: 1496, kcal: 358, fat: 19, saturated: 12, carbs: 36, sugars: 9.8, fiber: 2.8 } },
+          { id: "p-croissant-zmeura", name: "Croissant cu zmeură", desc: "", unit: "120 g", price: 6, family: "croissante", allergens: ["gluten", "ouă", "lapte"], traces: ["soia", "fructe cu coajă", "susan"], frozen: true, nutrition: { label: true, kj: 1440, kcal: 343, fat: 14, saturated: 8.7, carbs: 45, sugars: 17, protein: 6.4, salt: 0.65 } },
+          { id: "p-covrig-seminte", name: "Covrig cu semințe", desc: "", unit: "100 g", price: 3, family: "covrigi", allergens: ["gluten", "soia", "susan"], frozen: true, nutrition: { label: true, kj: 1058, kcal: 253, fat: 3.2, saturated: 1.9, carbs: 50.9, sugars: 3, protein: 8.6, salt: 2 } },
           { id: "p-covrig-sare", name: "Covrig cu sare", desc: "", unit: "buc.", price: 3, family: "covrigi", allergens: ["gluten"], nutrition: NUTRITIE.COVRIG_SIMPLU },
-          { id: "p-covrig-cascaval", name: "Covrig cu cașcaval", desc: "", unit: "buc.", price: 4, family: "covrigi", allergens: ["gluten", "lapte"], frozen: true, nutrition: NUTRITIE.COVRIG_CASCAVAL },
-          { id: "p-covridog", name: "Covridog", desc: "Crenvurști în corn.", unit: "buc.", price: 6, family: "covridog și covriking", allergens: ["gluten", "soia", "lapte", "muștar"], frozen: true },
-          { id: "p-covriking", name: "Covriking", desc: "Șuncă și cașcaval în corn.", unit: "buc.", price: 8, family: "covridog și covriking", allergens: ["gluten", "soia", "lapte"], frozen: true },
+          { id: "p-covrig-cascaval", name: "Covrig cu cașcaval", desc: "", unit: "85 g", price: 4, family: "covrigi", allergens: ["gluten", "lapte"], traces: ["soia", "susan"], frozen: true, nutrition: { label: true, kj: 1138, kcal: 270.5, fat: 8, saturated: 3.7, carbs: 40.5, sugars: 3.6, protein: 9, salt: 1.3 } },
+          { id: "p-covridog", name: "Covridog", desc: "Crenvurști în corn.", unit: "100 g", price: 6, family: "covridog și covriking", allergens: ["gluten", "soia", "lapte", "susan"], frozen: true, nutrition: { label: true, kj: 1119, kcal: 268, fat: 12, saturated: 4.1, carbs: 29.5, sugars: 2.6, protein: 10.4, salt: 1.3 } },
+          { id: "p-covriking", name: "Covriking", desc: "Șuncă și cașcaval în corn.", unit: "120 g", price: 8, family: "covridog și covriking", allergens: ["gluten", "soia", "lapte", "susan"], frozen: true, nutrition: { label: true, kj: 817, kcal: 195, fat: 4.48, saturated: 1.25, carbs: 30.3, sugars: 2.7, fiber: 1.2, protein: 8.14, salt: 0.92 } },
         ],
       },
       {
@@ -70,30 +68,30 @@ window.MENUS = [
           { id: "p-sandvis-salam", name: "Sandviș cu salam", desc: "Ciabatta maxi, 4 felii de salam, brânză cheddar, salată verde, roșii, castraveți.", unit: "buc.", price: 12, family: "sandvișuri", allergens: ["gluten", "soia", "lapte"], frozen: "Pâine din produs congelat." },
           { id: "p-sandvis-muschi", name: "Sandviș cu mușchi file", desc: "Ciabatta maxi, 3 felii de mușchi file, brânză cheddar, salată verde, roșii, castraveți.", unit: "buc.", price: 12, family: "sandvișuri", allergens: ["gluten", "soia", "lapte"], frozen: "Pâine din produs congelat." },
           { id: "p-pizza-felie", name: "Felie de pizza", desc: "Blat, sos de roșii, șuncă, salam, ciuperci, măsline, mozzarella.", unit: "felie", price: 10, family: "pizza", allergens: ["gluten", "soia", "lapte"] },
-          { id: "p-pizza-caprese", name: "Pizza caprese", desc: "Blat, mozzarella, roșii.", unit: "buc.", price: 6, family: "pizza", allergens: ["gluten", "lapte"], frozen: true },
+          { id: "p-pizza-caprese", name: "Pizza caprese", desc: "Blat, mozzarella, roșii.", unit: "135 g", price: 6, family: "pizza", allergens: ["gluten", "lapte"], traces: ["ouă", "soia", "fructe cu coajă", "țelină", "muștar", "susan", "lupin"], frozen: true, nutrition: { label: true, kj: 1010, kcal: 240, fat: 9.2, saturated: 5.8, carbs: 29.8, sugars: 4, fiber: 2.1, protein: 8.6, salt: 1.69 } },
         ],
       },
       {
         title: "Foietaje",
         items: [
-          { id: "p-strudel-sunca", name: "Ștrudel rustic cu șuncă", desc: "Șuncă, brânză, ceapă.", unit: "buc.", price: 8, family: "foietaje", allergens: ["gluten", "ouă", "soia", "lapte"], frozen: true },
-          { id: "p-merdenea-branza", name: "Merdenea cu brânză", desc: "", unit: "buc.", price: 5, family: "foietaje", allergens: ["gluten", "ouă", "lapte"], frozen: true },
-          { id: "p-cos-zmeura-quark", name: "Coș cu zmeură și brânză quark", desc: "", unit: "130 g", price: 7, family: "foietaje", tag: "nou", allergens: ["gluten", "ouă", "lapte"], frozen: true },
-          { id: "p-mini-cascaval", name: "Mini cu cașcaval", desc: "Se vând la cântar. Fiecare bucată din coș înseamnă 100 g.", unit: "100 g", price: 5.5, family: "produse la cântar", allergens: ["gluten", "ouă", "lapte"], frozen: true },
-          { id: "p-pernute-branza", name: "Pernuțe cu brânză", desc: "Se vând la cântar. Fiecare bucată din coș înseamnă 100 g.", unit: "100 g", price: 5.5, family: "produse la cântar", allergens: ["gluten", "ouă", "lapte"], frozen: true },
+          { id: "p-strudel-sunca", name: "Ștrudel rustic cu șuncă", desc: "Șuncă, brânză, ceapă.", unit: "130 g", price: 8, family: "foietaje", allergens: ["gluten", "lapte"], traces: ["ouă", "soia", "fructe cu coajă", "țelină", "muștar", "susan", "lupin"], frozen: true, nutrition: { label: true, kj: 1060, kcal: 253, fat: 12.3, saturated: 7.4, carbs: 25.7, sugars: 1.4, fiber: 2, protein: 8.9 } },
+          { id: "p-merdenea-branza", name: "Merdenea cu brânză", desc: "", unit: "100 g", price: 5, family: "foietaje", allergens: ["gluten", "ouă", "soia", "lapte"], traces: ["susan"], frozen: true, nutrition: { label: true, kj: 1240, kcal: 294, fat: 19, saturated: 9.7, carbs: 25.7, sugars: 1.4, protein: 6.2 } },
+          { id: "p-cos-zmeura-quark", name: "Coș cu zmeură și brânză quark", desc: "", unit: "130 g", price: 7, family: "foietaje", tag: "nou", allergens: ["gluten", "ouă", "lapte"], traces: ["soia", "fructe cu coajă", "muștar", "susan", "lupin"], frozen: true, nutrition: { label: true, kj: 1002, kcal: 239, fat: 9.6, saturated: 6.4, carbs: 30.9, sugars: 12.2, fiber: 2 } },
+          { id: "p-mini-cascaval", name: "Mini cu cașcaval", desc: "Se vând la cântar. Fiecare bucată din coș înseamnă 100 g.", unit: "100 g", price: 5.5, family: "produse la cântar", allergens: ["gluten", "ouă", "soia", "lapte"], traces: ["fructe cu coajă", "muștar", "susan", "lupin"], frozen: true, nutrition: { label: true, kj: 1346, kcal: 323, fat: 20.5, saturated: 10.4, carbs: 28, sugars: 2.2, fiber: 0.8, protein: 6.2, salt: 1.2 } },
+          { id: "p-pernute-branza", name: "Pernuțe cu brânză", desc: "Se vând la cântar. Fiecare bucată din coș înseamnă 100 g.", unit: "100 g", price: 5.5, family: "produse la cântar", allergens: ["gluten", "ouă", "lapte"], traces: ["soia", "fructe cu coajă", "muștar", "susan", "sulfiți"], frozen: true, nutrition: { label: true, kj: 1220, kcal: 292, fat: 16.2, saturated: 8.5, carbs: 29.7, sugars: 3.1, protein: 5.9, salt: 1.38 } },
           { id: "p-pernute-visine", name: "Pernuțe cu vișine și mascarpone", desc: "Se vând la cântar. Fiecare bucată din coș înseamnă 100 g.", unit: "100 g", price: 5.5, family: "produse la cântar", allergens: ["gluten", "ouă", "lapte"], frozen: true },
         ],
       },
       {
         title: "Gogoși",
         items: [
-          { id: "p-gogoasa-fistic", name: "Gogoașă cu fistic", desc: "", unit: "buc.", price: 6, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte", "fructe cu coajă"], frozen: true, nutrition: NUTRITIE.GOGOASA_CREMA },
-          { id: "p-gogoasa-biscoff", name: "Gogoașă Biscoff", desc: "", unit: "buc.", price: 6, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte"], frozen: true, nutrition: NUTRITIE.GOGOASA_CREMA },
+          { id: "p-gogoasa-fistic", name: "Gogoașă cu fistic", desc: "", unit: "77 g", price: 6, family: "gogoși", allergens: ["gluten", "soia", "lapte", "fructe cu coajă"], traces: ["ouă"], frozen: true, nutrition: { label: true, kj: 1949, kcal: 467, fat: 29, saturated: 12, carbs: 45, sugars: 24, fiber: 2.4, protein: 6.7, salt: 0.97 } },
+          { id: "p-gogoasa-biscoff", name: "Gogoașă Biscoff", desc: "", unit: "70 g", price: 6, family: "gogoși", allergens: ["gluten", "soia"], traces: ["ouă", "lapte", "fructe cu coajă"], frozen: true, nutrition: { label: true, kj: 1935, kcal: 463, fat: 27, saturated: 12, carbs: 48, sugars: 19, fiber: 1.6, protein: 5.5, salt: 1.1 } },
           { id: "p-gogoasa-zmeura", name: "Gogoașă cu zmeură", desc: "", unit: "buc.", price: 6, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte"], frozen: true, nutrition: NUTRITIE.GOGOASA_FRUCTE },
-          { id: "p-gogoasa-ciocolata", name: "Gogoașă cu ciocolată", desc: "", unit: "buc.", price: 5, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte"], frozen: true, nutrition: NUTRITIE.GOGOASA_CREMA },
-          { id: "p-gogoasa-capsuni", name: "Gogoașă cu căpșuni", desc: "", unit: "buc.", price: 5, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte"], frozen: true, nutrition: NUTRITIE.GOGOASA_FRUCTE },
+          { id: "p-gogoasa-ciocolata", name: "Gogoașă cu ciocolată", desc: "", unit: "71 g", price: 5, family: "gogoși", allergens: ["gluten", "soia", "lapte"], traces: ["ouă", "fructe cu coajă", "susan"], frozen: true, nutrition: { label: true, kj: 1905, kcal: 456, fat: 26, saturated: 11, carbs: 48, sugars: 26, protein: 5.4, salt: 0.95 } },
+          { id: "p-gogoasa-capsuni", name: "Gogoașă cu căpșuni", desc: "", unit: "73 g", price: 5, family: "gogoși", allergens: ["gluten", "soia", "lapte"], traces: ["ouă", "fructe cu coajă", "susan"], frozen: true, nutrition: { label: true, kj: 1605, kcal: 384, fat: 21, saturated: 11, carbs: 42, sugars: 20, protein: 5.3, salt: 0.93 } },
           { id: "p-gogoasa-oreo", name: "Gogoașă Oreo", desc: "", unit: "buc.", price: 5, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte"], frozen: true, nutrition: NUTRITIE.GOGOASA_CREMA },
-          { id: "p-gogoasa-nutella", name: "Gogoașă cu Nutella", desc: "", unit: "buc.", price: 5, family: "gogoși", allergens: ["gluten", "ouă", "soia", "lapte", "fructe cu coajă"], frozen: true, nutrition: NUTRITIE.GOGOASA_CREMA },
+          { id: "p-gogoasa-nutella", name: "Gogoașă cu Nutella", desc: "", unit: "71 g", price: 5, family: "gogoși", allergens: ["gluten", "soia", "lapte", "fructe cu coajă"], traces: ["ouă"], frozen: true, nutrition: { label: true, kj: 1930, kcal: 462, fat: 27, saturated: 12, carbs: 47, sugars: 24, protein: 6, salt: 0.97 } },
         ],
       },
       {
