@@ -13,8 +13,7 @@
 // `nutrition` cu `label: true`: valorile de pe eticheta/fișa producătorului, la 100 g (kj, kcal, fat, saturated,
 // carbs, sugars, fiber, protein, salt; câmpurile lipsă nu se afișează).
 // `traces`: alergenii pe care producătorul îi trece la „poate conține urme de”.
-// `nutrition` cu `estimated: true`: calculat din etichetele ingredientelor și gramaje aproximative
-// (vezi docs/valori-estimative.md).
+// `nutrition` cu `estimated: true`: calculat din etichetele ingredientelor și gramaje aproximative.
 // Profilurile de mai jos sunt valori ORIENTATIVE, la 100 g: medii pentru tipul de produs, nu analiza produselor noastre.
 // Ordinea: energie (kcal), grăsimi, din care saturate, glucide, din care zaharuri, proteine, sare (g).
 // La băuturile ambalate, `nutrition: "pe ambalaj"`: valorile exacte sunt pe etichetă.
