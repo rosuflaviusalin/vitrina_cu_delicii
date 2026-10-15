@@ -679,22 +679,6 @@ a { color: inherit; }
   .story__photo { max-width: 420px; }
 }
 
-/* ---------- Alergeni ---------- */
-
-.allergens__inner {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 8px var(--gutter) 40px;
-  color: var(--ink-soft);
-}
-.allergens h2 {
-  font-size: 1.6rem;
-  font-style: italic;
-  color: var(--walnut);
-  margin-bottom: 8px;
-}
-.allergens p { max-width: 46em; margin: 0 0 6px; }
-
 /* ---------- Locație ---------- */
 
 .visit {
