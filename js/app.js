@@ -203,14 +203,16 @@
       ["Sare", g(n.salt)],
     ].filter(([, value]) => value != null);
     return el("details", { class: "item__nutrition" },
-      el("summary", { text: n.label ? "Valori nutriționale" : "Valori nutriționale orientative" }),
+      el("summary", { text: n.label ? "Valori nutriționale" : n.estimated ? "Valori nutriționale estimative" : "Valori nutriționale orientative" }),
       el("table", {},
         el("caption", { text: "La 100 g" }),
         el("tbody", {}, rows.map(([k, val]) => el("tr", {}, el("th", { scope: "row", text: k }), el("td", { text: val }))))
       ),
       el("p", { text: n.label
         ? "Conform informațiilor producătorului."
-        : "Valori medii pentru acest tip de produs, nu rezultatul analizei produselor noastre." })
+        : n.estimated
+          ? "Calculate din valorile de pe etichetele ingredientelor și din gramaje aproximative. Valorile reale pot varia."
+          : "Valori medii pentru acest tip de produs, nu rezultatul analizei produselor noastre." })
     );
   }
 
